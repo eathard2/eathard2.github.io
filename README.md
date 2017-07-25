@@ -7,4 +7,3 @@ thanks
 
     here
     auth    »œ÷§
-    ∞°
