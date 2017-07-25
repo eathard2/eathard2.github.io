@@ -1,3 +1,2 @@
-# eathard2.github.io
-A test project for learning Git.
-
+# wordlist
+authenticate  v.认证
