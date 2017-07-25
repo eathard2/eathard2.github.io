@@ -1,2 +1,2 @@
 # wordlist
-### auther  认证
+### authenticate  认证
