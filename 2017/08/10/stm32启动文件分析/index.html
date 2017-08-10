@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Eathard&#39;s Blog</title>
+  <title>stm32启动文件分析 | Eathard&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Eathard&#39;s Blog">
-<meta property="og:url" content="https://eathard2.github.io/index.html">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stm32启动文件分析">
+<meta property="og:url" content="https://eathard2.github.io/2017/08/10/stm32启动文件分析/index.html">
 <meta property="og:site_name" content="Eathard&#39;s Blog">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:updated_time" content="2017-08-10T06:51:46.335Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eathard&#39;s Blog">
+<meta name="twitter:title" content="stm32启动文件分析">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
   
   
     <link rel="icon" href="/favicon.png">
@@ -58,9 +63,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-stm32启动文件分析" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-stm32启动文件分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/08/10/stm32启动文件分析/" class="article-date">
   <time datetime="2017-08-10T05:49:06.000Z" itemprop="datePublished">2017-08-10</time>
@@ -73,8 +76,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/10/stm32启动文件分析/">stm32启动文件分析</a>
+    <h1 class="article-title" itemprop="name">
+      stm32启动文件分析
     </h1>
   
 
@@ -97,97 +100,26 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-stm32f10x-h" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/10/stm32f10x-h/" class="article-date">
-  <time datetime="2017-08-10T05:24:36.000Z" itemprop="datePublished">2017-08-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/10/stm32f10x-h/">stm32f10x_h</a>
-    </h1>
+    <a href="/2017/08/10/stm32f10x-h/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">stm32f10x_h</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">******************************************************************************</div><div class="line"> * @file    stm32f10x.h</div><div class="line"> * @author  MCD Application Team</div><div class="line"> * @version V3.5.0</div><div class="line"> * @date    11-March-2011</div><div class="line"> * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer Header File.</div><div class="line"> *          This file contains all the peripheral register<span class="string">'s definitions, bits</span></div><div class="line"><span class="string"> *          definitions and memory mapping for STM32F10x Connectivity line,</span></div><div class="line"><span class="string"> *          High density, High density value line, Medium density,</span></div><div class="line"><span class="string"> *          Medium density Value line, Low density, Low density Value line</span></div><div class="line"><span class="string"> *          and XL-density devices.</span></div><div class="line"><span class="string"> //         Cortex-M3设备访问层头文件。这个文件包含了所有的外设寄存器定义，位定义和内存映射。</span></div><div class="line"><span class="string"> *          The file is the unique include file that the application programmer</span></div><div class="line"><span class="string"> *          is using in the C source code, usually in main.c. This file contains:</span></div><div class="line"><span class="string"> //             这是C语言编程中的一个特有的#include，通常写在mian.c中，包含以下内容：</span></div><div class="line"><span class="string"> *           - Configuration section that allows to select:</span></div><div class="line"><span class="string"> //               段配置</span></div><div class="line"><span class="string"> *              - The device used in the target application</span></div><div class="line"><span class="string"> //               在目标应用中使用的设备</span></div><div class="line"><span class="string"> *              - To use or not the peripheral drivers in application code(i.e.</span></div><div class="line"><span class="string"> *                code will be based on direct access to peripheral registers</span></div><div class="line"><span class="string"> *                rather than drivers API), this option is controlled by</span></div><div class="line"><span class="string"> *                "#define USE_STDPERIPH_DRIVER"</span></div><div class="line"><span class="string"> //             选择是程序中否启用一些外设驱动，通过“USE_STDPERIPH_DRIVER”来控制程序直接访问外设寄存器而不是驱动api</span></div><div class="line"><span class="string"> *              - To change few application-specific parameters such as the HSE</span></div><div class="line"><span class="string"> *                crystal frequency</span></div><div class="line"><span class="string"> //            改变几个应用特定的参数，比如，HSE晶振频率参数。</span></div><div class="line"><span class="string"> *           - Data structures and the address mapping for all peripherals</span></div><div class="line"><span class="string"> //           所有外设的数据结构和地址映射</span></div><div class="line"><span class="string"> *           - Peripheral'</span>s registers declarations and bits definition</div><div class="line"> //           外设的寄存器定义和地址映射</div><div class="line"> *           - Macros to access peripheral registers hardware</div><div class="line"> //            访问硬件寄存器的宏</div><div class="line"> ******************************************************************************</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://eathard2.github.io/2017/08/10/stm32f10x-h/" data-id="cj662vh3o0004pw0lp8dcnia2" class="article-share-link">Share</a>
-      
-        <a href="https://eathard2.github.io/2017/08/10/stm32f10x-h/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
 
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/07/hello-world/" class="article-date">
-  <time datetime="2017-08-07T07:32:39.660Z" itemprop="datePublished">2017-08-07</time>
-</a>
-    
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/07/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://eathard2.github.io/2017/08/07/hello-world/" data-id="cj662vh1q0000pw0lljl1oc2h" class="article-share-link">Share</a>
-      
-        <a href="https://eathard2.github.io/2017/08/07/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -271,11 +203,13 @@
 <script>
   var disqus_shortname = 'HTTPS-EATHARD2-GITHUB-IO';
   
+  var disqus_url = 'https://eathard2.github.io/2017/08/10/stm32启动文件分析/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
