@@ -60,82 +60,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Understanding-extern-keyword-in-C" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/11/Understanding-extern-keyword-in-C/" class="article-date">
-  <time datetime="2017-08-11T11:51:19.000Z" itemprop="datePublished">2017-08-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/11/Understanding-extern-keyword-in-C/">Understanding extern keyword in C</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.geeksforgeeks.org/understanding-extern-keyword-in-c/" target="_blank" rel="external">原文Understanding “extern” keyword in C</a></p>
-<p>I’m sure that this post will be as interesting and informative to C virgins (i.e. beginners) as it will be to those who are well versed in C. So let me start with saying that extern keyword applies to C variables (data objects) and C functions. Basically extern keyword extends the visibility of the C variables and C functions. Probably that’s is the reason why it was named as extern.</p>
-<p>我确信这篇文章无论对于C语言初学者还是老鸟都是有充满信息量的，并且学起来很有趣。<br>所以让我们从一句“谚语”说起，extern关键字是用来修饰C变量或者C函数的。<br>extern关键字基本上就是拓展C变量和C函数的可见范围。<br>或许这就是他被称为extern的原因吧。</p>
-<p>Though (almost) everyone knows the meaning of declaration and definition of a variable/function yet for the sake of completeness of this post, I would like to clarify them. Declaration of a variable/function simply declares that the variable/function exists somewhere in the program but the memory is not allocated for them. But the declaration of a variable/function serves an important role. And that is the type of the variable/function. Therefore, when a variable is declared, the program knows the data type of that variable. In case of function declaration, the program knows what are the arguments to that functions, their data types, the order of arguments and the return type of the function. So that’s all about declaration. Coming to the definition, when we define a variable/function, apart from the role of declaration, it also allocates memory for that variable/function. Therefore, we can think of definition as a super set of declaration. (or declaration as a subset of definition). From this explanation, it should be obvious that a variable/function can be declared any number of times but it can be defined only once. (Remember the basic principle that you can’t have two locations of the same variable/function). So that’s all about declaration and definition.</p>
-<p>虽然几乎所有人都知道声明（declaration）和定义（definition）一个变量或者函数的含义，但是为了本文的完整性，在这里我还会澄清他们。<br>变量/函数的声明简单的说就是为了说明某个变量/函数存在于程序的某个位置，但是并没有分配内存空间。<br>但是声明一个变量和函数起着至关重要的作用，那就是变量/函数的类型。<br>因此，当一个变量被声明，程序就知道了这个变量的数据类型。函数一旦声明，程序就知道函数的参数，数据类型，参数顺序和函数返回值类型是什么。<br>这就是关于声明的全部。<br>下面讨论定义的问题，当我们定义一个函数或者变量，和声明不同的是，它还会分配内存空间给变量或者函数。因此，我们可以认为定义是一种更高级的声明。<br>从这种解释中，我们可以得出结论：一个变量/函数可以被无限次声明，但是只能仅仅被定义一次！（记住这个基本原理：一个相同的函数/变量不能同时占据两个位置。）这就是关于声明和定义的全部。</p>
-<p>Now coming back to our main objective: Understanding “extern” keyword in C. I’ve explained the role of declaration/definition because it’s mandatory to understand them to understand the “extern” keyword. Let us first take the easy case. Use of extern with C functions. By default, the declaration and definition of a C function have “extern” prepended with them. It means even though we don’t use extern with the declaration/definition of C functions, it is present there. For example, when we write.</p>
-<p>下面开始回到我们的主要问题：认识C语言中的extern关键字。我已经解释了声明和定义的作用。因为必须先了解定义和声明才能了解extern关键字。<br>先让我们从简单的案例开始。在C函数中使用extern关键字。默认情况下，当我们定义或者声明一个C函数时，extern已经附加在函数的首部了。所以，这就意味着即使我们不在声明和定义中突出extern，它其实已经使用过extern修饰过了。举个例子，当我们写，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> arg1, <span class="keyword">char</span> arg2)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>There’s an extern present in the beginning which is hidden and the compiler treats it as below.<br>上边没有被extern修饰的和下边这个完全一样，编译器就是这么认为的：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> arg1, <span class="keyword">char</span> arg2)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>Same is the case with the definition of a C function (Definition of a C function means writing the body of the function). Therefore whenever we define a C function, an extern is present there in the beginning of the function definition. Since the declaration can be done any number of times and definition can be done only once, we can notice that declaration of a function can be added in several C/H files or in a single C/H file several times. But we notice the actual definition of the function only once (i.e. in one file only). And as the extern extends the visibility to the whole program, the functions can be used (called) anywhere in any of the files of the whole program provided the declaration of the function is known. (By knowing the declaration of the function, C compiler knows that the definition of the function exists and it goes ahead to compile the program). So that’s all about extern with C functions.</p>
-<p>定义一个C函数也是同样的（定义一个C函数意味着要书写函数体）。<br>因此，无论何时当我们定义一个C函数时,extern已经默认放在定义被定义函数的首部了。<br>尽管声明可以声明无数次然而定义只能定义一次，我们可以注意到，函数的声明可以在几个C/H文件或单个C/H文件中添加多次。<br>但是我们注意到函数的实际定义只有一次（即仅在一个文件中）。<br>因为extern拓展了函数在整个程序中的可见性，所以只要函数的声明已知，函数就可以在程序的任何文件中被调用。<br>（通过函数的声明，C编译器知道该函数的定义存在，并且继续编译程序）这就是关于extern在C函数中的全部。</p>
-<p>Now let us the take the second and final case i.e. use of extern with C variables. I feel that it more interesting and information than the previous case where extern is present by default with C functions. So let me ask the question, how would you declare a C variable without defining it? Many of you would see it trivial but it’s important question to understand extern with C variables. The answer goes as follows.</p>
-<p>现在让我们来讨论第二个也是最后一个问题，即在C变量中使用extern。我感觉比起前者（extern已经默认放在C函数前面），这更加有趣并且更有价值。<br>所以先让我问一个问题：你如何声明一个没有被定义的C变量？你或许认为这没有什么但是这对于理解如何在C变量中使用extern是一个重要的问题。下面揭示答案。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> var;</div></pre></td></tr></table></figure></p>
-<p>Here, an integer type variable called var has been declared (remember no definition i.e. no memory allocation for var so far). And we can do this declaration as many times as needed. (remember that declaration can be done any number of times) So far so good.</p>
-<p>这里有一个称作var的整型变量（记住，没有定义，即没有内存空间分配给var）,我们可以根据需要声明很多次。（记住：声明可以做很多次）。</p>
-<p>Now how would you define a variable. Now I agree that it is the most trivial question in programming and the answer is as follows.<br>现在怎么定义一个变量呢，现在我可以同意这是在编程中最小的事情了，答案在这里;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> var;</div></pre></td></tr></table></figure></p>
-<p>Here, an integer type variable called var has been declared as well as defined. (remember that definition is the super set of declaration). Here the memory for var is also allocated. Now here comes the surprise, when we declared/defined a C function, we saw that an extern was present by default. While defining a function, we can prepend it with extern without any issues. But it is not the case with C variables. If we put the presence of extern in variable as default then the memory for them will not be allocated ever, they will be declared only. Therefore, we put extern explicitly for C variables when we want to declare them without defining them. Also, as the extern extends the visibility to the whole program, by externing a variable we can use the variables anywhere in the program provided we know the declaration of them and the variable is defined somewhere.</p>
-<p>这里一个叫做var的整型变量已经被声明或者定义。（记住：定义是更高级的声明）。<br>这里的var已经被分配内存了。<br>现在这里有一个惊喜，当我们声明/定义了一个C函数时，我们看到一个extern是默认存在的。当定义一个函数时，我们可以前置extern而不会有任何问题。<br>但是对于C变量来说不是这个情况。<strong>如果我们在变量前默认放置一个extern,他们的内存将不会被分配，而是仅仅声明。</strong><br>因此，我们在想声明变量而不去定义它们时通常使用extern修饰变量。<br>当然，extern会将可见性扩展到整个程序，通过extern一个变量，只要知道他们的声明和变量在某处已经被定义，我们就可以在程序的任何位置使用他们。</p>
-<p>Now let us try to understand extern with examples.</p>
-<p>Example 1:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> var;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">   var = <span class="number">10</span>;</div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Analysis: This program is compiled successfully. Here var is defined (and declared implicitly[隐晦地]) globally.</p>
-<p>Example 2:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> var;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Analysis: This program is compiled successfully. Here var is declared only. Notice var is never used so no problems.</p>
-<p>Example 3:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> var;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line"> var = <span class="number">10</span>;</div><div class="line"> <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Analysis: This program throws error in compilation. Because var is declared but not defined anywhere. Essentially, the var isn’t allocated any memory. And the program is trying to change the value to 10 of a variable that doesn’t exist at all.</p>
-<p>Example 4:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"somefile.h"</span></span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> var;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line"> var = <span class="number">10</span>;</div><div class="line"> <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Analysis: Supposing that <code>somefile.h</code> has the definition of var. This program will be compiled successfully.</p>
-<p>Example 5:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> var = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line"> var = <span class="number">10</span>;</div><div class="line"> <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Analysis: Guess this program will work? Well, here comes another surprise from C standards. They say that..if a variable is only declared and an initializer is also provided with that declaration, then the memory for that variable will be allocated i.e. that variable will be considered as defined. Therefore, as per the C standard, this program will compile successfully and work.<br>分析：猜想一下这个程序会工作吗？是的，这是来自C标准的另一个惊喜。他们说,<strong>如果一个变量在声明的时候被初始化了一个值，编译器认为这应该是一个定义语句而不是声明，所以程序正常运行。</strong><br>So that was a preliminary look at “extern” keyword in C.</p>
-<p>I’m sure that you want to have some take away from the reading of this post. And I would not disappoint you.<br>In short, we can say</p>
-<ol>
-<li>Declaration can be done any number of times but definition only once.</li>
-<li>“extern” keyword is used to extend the visibility of variables/functions().</li>
-<li>Since functions are visible through out the program by default. The use of extern is not needed in function declaration/definition. Its use is redundant.</li>
-<li>When extern is used with a variable, it’s only declared not defined.</li>
-<li>As an exception, when an extern variable is declared with initialization, it is taken as definition of the variable as well.</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://eathard2.github.io/2017/08/11/Understanding-extern-keyword-in-C/" data-id="cj684vpaw0000rs0l3nt3961g" class="article-share-link">Share</a>
-      
-        <a href="https://eathard2.github.io/2017/08/11/Understanding-extern-keyword-in-C/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C语言/">C语言</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-stm32启动文件分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/08/10/stm32启动文件分析/" class="article-date">
@@ -163,7 +87,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://eathard2.github.io/2017/08/10/stm32启动文件分析/" data-id="cj684vpbi0004rs0l8pppl2fi" class="article-share-link">Share</a>
+      <a data-url="https://eathard2.github.io/2017/08/10/stm32启动文件分析/" data-id="cj662vh2i0001pw0lcpu506tk" class="article-share-link">Share</a>
       
         <a href="https://eathard2.github.io/2017/08/10/stm32启动文件分析/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -204,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://eathard2.github.io/2017/08/10/stm32f10x-h/" data-id="cj684vpbc0003rs0lj2eaiy05" class="article-share-link">Share</a>
+      <a data-url="https://eathard2.github.io/2017/08/10/stm32f10x-h/" data-id="cj662vh3o0004pw0lp8dcnia2" class="article-share-link">Share</a>
       
         <a href="https://eathard2.github.io/2017/08/10/stm32f10x-h/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -251,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://eathard2.github.io/2017/08/07/hello-world/" data-id="cj684vpb40001rs0labqu9p7w" class="article-share-link">Share</a>
+      <a data-url="https://eathard2.github.io/2017/08/07/hello-world/" data-id="cj662vh1q0000pw0lljl1oc2h" class="article-share-link">Share</a>
       
         <a href="https://eathard2.github.io/2017/08/07/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -275,7 +199,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C语言/">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
     </div>
   </div>
 
@@ -285,7 +209,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C语言/" style="font-size: 10px;">C语言</a> <a href="/tags/stm32/" style="font-size: 10px;">stm32</a>
+      <a href="/tags/stm32/" style="font-size: 10px;">stm32</a>
     </div>
   </div>
 
@@ -305,10 +229,6 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2017/08/11/Understanding-extern-keyword-in-C/">Understanding extern keyword in C</a>
-          </li>
         
           <li>
             <a href="/2017/08/10/stm32启动文件分析/">stm32启动文件分析</a>
