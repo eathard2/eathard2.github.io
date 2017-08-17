@@ -1,0 +1,167 @@
+<html>
+<head>
+  <title>经典题目short s=1;s=s+1;与short s=1;s+=1;的区别 - nbadj的博客 - 博客频道 - CSDN.NET</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="686"/>
+<h1>经典题目short s=1;s=s+1;与short s=1;s+=1;的区别 - nbadj的博客 - 博客频道 - CSDN.NET</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/4/12 11:25</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://blog.csdn.net/nbadj/article/details/45626431"><i>http://blog.csdn.net/nbadj/article/details/45626431</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div><div style="background:url(&quot;http://static.blog.csdn.net/skin/default/css/../images/body_bg.gif&quot;) 0px 20px repeat-x;color:rgb(51, 51, 51);text-align:center;font-size:12px;font-family:Arial, Console, Verdana, &quot;Courier New&quot;;"><div style="background:url(&quot;http://static.blog.csdn.net/skin/default/css/../images/head_bg.jpg&quot;) center top no-repeat;"><div style="overflow:hidden;background:rgb(255, 255, 255);border-radius:8px;text-align:left;"><div style="overflow:hidden;border-radius:4px;"><div><div>
+    <div style="display:block;margin:5px 0px;color:rgb(0, 0, 0);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;">   
+         <span style="display:inline-block;width:19px;height:19px;margin:0px 2px 0px 0px;background:url(&quot;http://static.blog.csdn.net/skin/default/css/../../../images/ico_Original.gif&quot;) 0px 0px no-repeat;vertical-align:middle;"></span>
+
+
+    <h1 style="font-size:20px;padding:0px;margin:0px;font-weight:normal;font-stretch:normal;font-style:normal;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;vertical-align:middle;font-variant:normal;display:inline;">
+        <span><a href="http://blog.csdn.net/nbadj/article/details/45626431" style="text-decoration:none;color:rgb(0, 0, 0);">
+        经典题目short s=1;s=s+1;与short s=1;s+=1;的区别            
+        </a></span>
+    </h1>
+<span style="color:rgb(0, 0, 0);font-style:normal;font-variant:normal;font-weight:normal;font-size:20px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+
+   
+
+        <div style="line-height:22px;padding:0px 20px 5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;color:rgb(153, 153, 153);font-family:Arial;text-align:right;display:block;border-bottom:1px solid rgb(237, 237, 237);margin:0px -20px;overflow:hidden;">
+        <div style="width:100%;float:left;">
+            <span style="margin:0px 5px;float:left;">
+            标签：
+              <a href="http://www.csdn.net/tag/java" style="color:rgb(51, 102, 153);text-decoration:none;display:inline-block;margin-right:10px;" target="_blank">java</a><a href="http://www.csdn.net/tag/%e8%b5%8b%e5%80%bc%e8%bf%90%e7%ae%97%e7%ac%a6" style="color:rgb(51, 102, 153);text-decoration:none;display:inline-block;margin-right:10px;" target="_blank">赋值运算符</a>
+            </span>
+        </div>
+        <div>
+            <span style="margin:0px 5px 0px 0px;">2015-05-10 22:06</span>
+            <span style="margin:0px 5px;padding:0px 0px 0px 14px;background:url(&quot;http://static.blog.csdn.net/css/../../../images/ico_view.png&quot;) left center no-repeat;" title="阅读次数">443人阅读</span>
+            <span style="margin:0px 5px;padding:0px 0px 0px 14px;background:url(&quot;http://static.blog.csdn.net/css/../../../images/ico_comm.png&quot;) left center no-repeat;" title="评论次数"> <a href="http://blog.csdn.net/nbadj/article/details/45626431#comments" style="color:rgb(51, 102, 153);text-decoration:none;">评论</a>(0)</span>
+            <span style="margin:0px 5px;"> <a href="#" style="color:rgb(51, 102, 153);text-decoration:none;" title="收藏">收藏</a></span>
+             <span style="margin:0px 5px;"> <a href="http://blog.csdn.net/nbadj/article/details/45626431#report" style="color:rgb(51, 102, 153);text-decoration:none;" title="举报">举报</a></span>
+
+        </div>
+    <span style="color:rgb(153, 153, 153);font-style:normal;font-variant:normal;font-weight:normal;font-size:12px;line-height:22px;font-family:Arial;text-align:right;display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+    
+    
+    
+      <div style="display:block;margin:0px -20px;border-bottom:1px solid rgb(237, 237, 237);padding:5px 20px;">
+        <div style="display:inline-block;font-size:14px;color:rgb(51, 51, 51);width:70px;float:left;line-height:28px;">
+           <img src="经典题目short s=1;s=s+1;与short s=1;s+=1;的区别 - nba_files/category_icon.jpg" type="image/jpeg" height="13" style="border:none;vertical-align:middle;" width="15"/>
+            <span style="display:inline-block;vertical-align:middle;">分类：</span>
+        </div>
+        <div style="display:inline-block;font-size:14px;color:rgb(223, 52, 52);float:left;width:90%;">
+                    <span style="display:inline-block;margin-left:15px;cursor:pointer;line-height:28px;position:relative;">
+                        <span>赋值运算符<em style="font-style:normal;"></em></span>                       
+                    </span>      
+        </div>
+    <span style="display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+      
+        <div style="padding:20px 0px;">         
+            <p style="height:14px;line-height:14px;border-left:3px solid rgb(228, 28, 30);padding-left:10px;color:rgb(102, 102, 102);font-size:14px;">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div style="margin:20px 0px 0px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:26px;font-family:Arial;">
+
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+short s=1;s=s+1;与short s=1;s+=1;的区别</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+为什么前者编译不通过，而后者可以。</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
++=是一个扩展赋值运算符，隐含了一个强制类型转换，如下：</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+s+=1；</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+不是等于s=s+1；</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+而是等于s=（s的数据类型）（s+1）；</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+即short s = 1;s+=1;等于</p>
+<p style="color:rgb(51,51,51);font-family:Arial;font-size:14px;line-height:26px;">
+short s = 1;s =(short)s+1;</p>
+<br/>
+   
+</div>
+
+
+
+
+
+
+
+
+
+<div style="float:right;">
+<a href="http://blog.csdn.net/nbadj/article/details/45626431#" style="color:rgb(51, 102, 153);text-decoration:none;background-position:0 0 !important;background-image:url('http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png') !important;"></a>
+<a href="http://blog.csdn.net/nbadj/article/details/45626431#" style="color:rgb(51, 102, 153);text-decoration:none;background-position:0 -52px !important;" title="分享到QQ空间"></a>
+<a href="http://blog.csdn.net/nbadj/article/details/45626431#" style="color:rgb(51, 102, 153);text-decoration:none;background-position:0 -104px !important;" title="分享到新浪微博"></a>
+<a href="http://blog.csdn.net/nbadj/article/details/45626431#" style="color:rgb(51, 102, 153);text-decoration:none;background-position:0 -260px !important;" title="分享到腾讯微博"></a>
+<a href="http://blog.csdn.net/nbadj/article/details/45626431#" style="color:rgb(51, 102, 153);text-decoration:none;background-position:0 -208px !important;" title="分享到人人网"></a>
+<a href="http://blog.csdn.net/nbadj/article/details/45626431#" style="color:rgb(51, 102, 153);text-decoration:none;background-position:0 -1612px !important;" title="分享到微信"></a>
+</div>
+
+
+
+   
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+        <div style="display:block;clear:both;width:182px;margin:0px auto;padding:30px 0px 15px;text-align:center;">
+            <dl style="display:inline-block;float:left;width:72px;height:72px;overflow:hidden;margin:0px 2px;background:rgb(153, 153, 153);text-align:center;color:rgb(255, 255, 255);">
+               
+                 <dt style="margin:0px;padding:12px 0px 3px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;">顶</dt>
+                <dd style="margin:0px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:22px;font-family:Arial;">1</dd>
+            </dl>
+           
+              
+            <dl style="display:inline-block;float:left;width:72px;height:72px;overflow:hidden;margin:0px 2px;background:rgb(153, 153, 153);text-align:center;color:rgb(255, 255, 255);">
+              
+                  <dt style="margin:0px;padding:12px 0px 3px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;">踩</dt>
+                <dd style="margin:0px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:22px;font-family:Arial;">0</dd>               
+            </dl>
+            
+        <span style="text-align:center;display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+     <div><a href="#" style="color:rgb(51, 102, 153);text-decoration:none;"> </a>   </div>
+    <div> <a href="#" style="color:rgb(51, 102, 153);text-decoration:none;"> </a></div>
+    
+
+   <ul style="line-height:24px;display:block;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;color:rgb(102, 102, 102);font-family:&quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif;clear:both;float:left;margin:0px 0px 5px;padding:10px 0px 0px;margin-top:30px;">
+                <li style="list-style-type:none;clear:both;padding:0px 0px 3px;overflow:hidden;"><span style="color:rgb(255, 255, 255);display:block;width:52px;padding:0px 0px 0px 27px;height:26px;background-color:rgb(153, 153, 153);float:left;font-size:14px;margin-right:7px;background-image:url(&quot;http://static.blog.csdn.net/skin/default/css/../images/blog-page-arr.png&quot;);background-repeat:no-repeat;background-position:9px -22px;">下一篇</span><a href="http://blog.csdn.net/nbadj/article/details/45626561" style="text-decoration:none;display:block;float:left;font-size:14px;color:rgb(51, 51, 51);">比较运算符的结果一定是boolean类型</a></li>
+    <span style="color:rgb(102, 102, 102);font-style:normal;font-variant:normal;font-weight:normal;font-size:14px;line-height:24px;font-family:&quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif;display:block;height:0px;clear:both;visibility:hidden;">.</span></ul>
+
+    <div style="clear:both;height:10px;"></div>
+
+
+            
+    
+      
+</div></div></div></div></div></div></div></div><br/></div></span>
+</div></body></html> 

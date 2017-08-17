@@ -1,0 +1,95 @@
+<html>
+<head>
+  <title>解析char *p与char p[] - Logic0 - 博客园</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="763"/>
+<h1>解析char *p与char p[] - Logic0 - 博客园</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/4/13 22:27</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://www.cnblogs.com/Logic0/archive/2009/08/01/1850337.html"><i>http://www.cnblogs.com/Logic0/archive/2009/08/01/1850337.html</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:18px;font-family:Verdana, &quot;Lucida Grande&quot;, Geneva, Arial, sans-serif;background:url(&quot;images/webBg.gif&quot;) left top repeat-x rgb(255, 255, 255);color:rgb(51, 51, 51);text-align:center;"><div style="font-family:&quot;PingFang SC&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:18px;background:url(&quot;images/webBg.gif&quot;) left top repeat-x rgb(255, 255, 255);color:rgb(51, 51, 51);text-align:center;font-size:14px;"><div style="min-width:auto;text-align:left;"><div style="overflow:auto;"><div><div><div>
+    <a name="top" style="outline:none;text-decoration:none;"></a>
+    <h2 style="font-size:16px;letter-spacing:-1px;background-image:url(&quot;images/dotsH.gif&quot;);background-position:left bottom;background-repeat:repeat-x;margin:0px;padding:6px 0px;font-weight:normal;line-height:120%;"><a href="http://www.cnblogs.com/Logic0/archive/2009/08/01/1850337.html" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);">解析char *p与char p[]</a></h2>
+    <small style="font-size:12px;letter-spacing:normal;color:rgb(171, 171, 171);display:block;text-align:right;">2009-08-01 19:38 by Logic0, <span>6184</span> 阅读, <span>1</span> 评论, <a href="http://www.cnblogs.com/Logic0/archive/2009/08/01/1850337.html#" style="outline:none;text-decoration:none;color:rgb(171, 171, 171);">收藏</a>,  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=1850337" rel="nofollow" style="outline:none;text-decoration:none;color:rgb(171, 171, 171);">编辑</a></small>
+    <div style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:Georgia, &quot;Times New Roman&quot;, Times, sans-serif;line-height:1.8;word-break:break-all;">
+        <div style="margin-bottom:20px;word-break:break-word;">
+
+                <div align="right" style="margin-bottom:4px;">
+
+                    <a href="http://cache-sidebar.blog.hexun.com/voteArticle.aspx?articleID=35683001&amp;blogname=yuhuafx&amp;blogid=4456865" style="outline:none;text-decoration:none;color:rgb(61, 129, 238);" title="给这篇文章投一票"><div style="border:none;width:61px;height:21px;"></div></a> 
+
+                    <span style="vertical-align:middle;font-size:12px;">字号：<span style="cursor:pointer;font-weight:normal;">大</span> <span style="cursor:default;font-weight:bold;">中</span> <span style="cursor:pointer;font-weight:normal;">小</span></span>
+
+                </div>
+
+                <div style="font-size:14px;">       见论坛上有人讨论这个问题，感觉也是涉及面比较广，而且很多人犯过这个错误，比如声明char *p = &quot;hello world!&quot;;却妄图用p指针改变字符串内容，所以就这个问题，我总结了一下。转载注明作者Logic0以及出处。<br/><br/>主要解析的问题：<br/><br/>问题1：<br/>#include &quot;stdio.h&quot;<br/>char *get_string_1()<br/>{<br/>    char p[] = &quot;hello world!&quot;;<br/>    return p;<br/>}<br/>char *get_string_2()<br/>
+
+{<br/>
+
+    char *p = &quot;hello world!&quot;;<br/>
+
+    return p;<br/>
+
+}<br/>int main()<br/>{<br/>    char *p;<br/>    p = get_string_1();<br/>    printf(&quot;get_string_1:%s\n&quot;,p);<br/>    p = get_string_2();<br/>    printf(&quot;get_string_2:%s\n&quot;,p);<br/>    return 0;<br/>}<br/>输出：<br/>get_string_1:（乱码或者没有输出），linux下没有任何输出<br/>get_string_2:hello world!<br/>为什么会这样？<br/><br/>问题2：<br/>char *p = &quot;hello world!&quot;;这样写到底合不合法，实际应用中能不能这样写。<br/><br/>问题3：<br/>char *p = &quot;hello world!&quot;;与char p[]=&quot;hello world!&quot;;有什么细节和操作上的差异。<br/><br/>解析：<br/>       char *p = &quot;hello world!&quot;;与char p[] = &quot;hello world!&quot;; 两者都用来声明一个字符串，并将其初始化为hello world!，但是表示的意义确是大不相同。<br/>       从其声明的对象来说：<br/>       char p[] = &quot;hello world!&quot;;用来声明一个数组p，数组大小为12字节。<br/>       char *p = &quot;hello world!&quot;;用来声明一个指针p，指向“hello world!”字符串起始位置。<br/>       从存储位置来说：<br/>       char p[] = &quot;hello world!&quot;;p数组作为局部变量被存储在栈区；<br/>       char *p = &quot;hello world!&quot;; 在这个声明中，&quot;hello world!&quot;被存储在静态数据区，而且是全局的，p仅仅就是个指针，指向这个区域。不信的话你可以试试下边的代码，看是不是同一个地址：<br/>       char *p1 = &quot;hello world!&quot;; <br/>       char *p2 = &quot;hello world!&quot;; <br/>       printf(&quot;p1:%x\np2:%x\n&quot;,p1,p2);<br/>       从函数执行后的扫尾工作来看：<br/>       C函数执行完之后对栈区进行清除操作，对静态数据区和堆则没有，因此第一个问题也就不难解释了，get_string_1()函数执行完就释放了栈区内存，所以根本就不存在存有&quot;hello world!&quot;声明时的内存，也就不可能有所输出。<br/><br/>        那么，写成char *p = &quot;hello world!&quot;;到底合不合法呢？能不能这样写呢？<br/>        这是一个历史问题，在const关键字被引入C语言之前，这样写是合法的，而且存在了很长的一段时间，大量的代码在此期间运用了这种写法，新版C语言为了兼容，故允许这样写，但最好不要这样，因为这种写法终会被淘汰，说不定哪天你的代码用了新版的编译器，然后莫名的出了问题，要找这个BUG估计不是一件容易的事。现在最好写成：<br/>        const char *p = &quot;hello world!&quot;;<br/>        或者<br/>        char p[] = &quot;hello world!&quot;;<br/>        那他们在操作和细节上有什么区别呢？<br/>        区别很多，由于本人才疏学浅，只总结出以下几点，忘有知者补充：<br/>        1. char *p = &quot;hello world!&quot;; 可以用p++操作，sizeof(p) == 4;<br/>        2.char p[]=&quot;hello world!&quot;; sizeof(p) == 12;<br/><br/>转载注明地址：<br/></div>
+
+</div>
+
+
+
+</div>
+        <div style="clear:both;"></div>
+        <div style="margin-top:20px;">
+        <div><div style="padding:10px 0px;margin-bottom:10px;margin-top:10px;border:1px dashed silver;font-size:12px;width:320px;text-align:center;">
+        <a href="#" style="margin-right:10px;outline:none;border-radius:10px;padding:3px 8px;text-decoration:none;font-weight:bold;cursor:pointer;display:inline-block;vertical-align:middle;box-shadow:rgba(0, 0, 0, 0.498039) 0px 1px 3px;text-shadow:rgba(0, 0, 0, 0.247059) 0px -1px 1px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D&quot;) repeat-x;background-color:rgb(45, 174, 191);color:rgb(255, 255, 255);border:none;">好文要顶</a>
+            <a href="#" style="margin-right:10px;outline:none;border-radius:10px;padding:3px 8px;text-decoration:none;font-weight:bold;cursor:pointer;display:inline-block;vertical-align:middle;box-shadow:rgba(0, 0, 0, 0.498039) 0px 1px 3px;text-shadow:rgba(0, 0, 0, 0.247059) 0px -1px 1px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D&quot;) repeat-x;background-color:rgb(227, 49, 0);color:rgb(255, 255, 255);border:none;">关注我</a>
+    <a href="#" style="margin-right:10px;outline:none;border-radius:10px;padding:3px 8px;text-decoration:none;font-weight:bold;cursor:pointer;display:inline-block;vertical-align:middle;box-shadow:rgba(0, 0, 0, 0.498039) 0px 1px 3px;text-shadow:rgba(0, 0, 0, 0.247059) 0px -1px 1px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D&quot;) repeat-x;background-color:rgb(255, 181, 21);color:rgb(255, 255, 255);border:none;">收藏该文</a>
+    <a href="#" style="margin-right:10px;outline:none;border-radius:10px;padding:3px 2px;text-decoration:none;font-weight:bold;cursor:pointer;display:inline-block;vertical-align:middle;box-shadow:none;text-shadow:none;background:none;color:rgb(255, 255, 255);border:none;" title="分享至新浪微博"><img src="解析char p与char p[] - Logic0 - 博客园_files/icon_weibo_24.png" type="image/png" alt="" height="24" style="height:auto;border:none;vertical-align:middle;margin-left:5px;box-shadow:none;max-width:300px;" width="24"/></a>
+    <a href="#" style="margin-right:10px;outline:none;border-radius:10px;padding:3px 2px;text-decoration:none;font-weight:bold;cursor:pointer;display:inline-block;vertical-align:middle;box-shadow:none;text-shadow:none;background:none;color:rgb(255, 255, 255);border:none;" title="分享至微信"><img src="解析char p与char p[] - Logic0 - 博客园_files/wechat.png" type="image/png" alt="" height="24" style="border:medium none;width:24px;height:24px;box-shadow:none;margin-left:5px;vertical-align:middle;max-width:300px;" width="24"/></a>
+</div>
+<div style="float:left;width:280px;margin-top:0px;margin-bottom:10px;color:rgb(0, 0, 0);margin-left:0px;font-size:12px;">
+    <div style="float:left;line-height:18px;">
+            <a href="http://home.cnblogs.com/u/Logic0/" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);" target="_blank"><img src="解析char p与char p[] - Logic0 - 博客园_files/u162159.jpg" type="image/jpeg" alt="" height="48" style="height:auto;border:0px;vertical-align:top;float:left;margin-right:5px;padding-top:5px;padding-left:2px;max-width:300px;" width="48"/></a>
+        <div style="float:left;line-height:18px;">
+            <a href="http://home.cnblogs.com/u/Logic0/" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);">Logic0</a><br/>
+            <a href="http://home.cnblogs.com/u/Logic0/followees" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);">关注 - 0</a><br/>
+            <a href="http://home.cnblogs.com/u/Logic0/followers" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);">粉丝 - 10</a>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div></div>
+    <div>
+                <a href="#" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);">+加关注</a>
+    </div>
+</div>
+<div style="float:right;margin-bottom:10px;margin-right:30px;font-size:12px;width:125px;text-align:center;margin-top:10px;">
+    <div style="float:left;width:46px;height:52px;background:url(&quot;http://static.cnblogs.com/images/upup.gif&quot;) no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px;">
+        <span style="font-size:14px;color:rgb(7, 93, 179);font-family:Verdana;line-height:1.5em;">1</span>
+    </div>
+    <div style="float:right;margin-left:20px;width:46px;height:52px;background:url(&quot;http://static.cnblogs.com/images/downdown.gif&quot;) no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px;">
+        <span style="font-size:14px;color:rgb(7, 93, 179);font-family:Verdana;line-height:1.5em;">0</span>
+    </div>
+    <div style="clear:both;"></div>
+    <div style="margin-top:5px;margin-left:0px;font-size:12px;color:gray;">
+    </div>
+</div>
+</div>
+        <div style="clear:both;"></div>
+        <div style="line-height:1.8;font-size:12px;"><a href="http://www.cnblogs.com/Logic0/archive/2009/08/01/1850336.html" style="outline:none;color:rgb(102, 153, 204);text-decoration:none;">« </a> 上一篇：<a href="http://www.cnblogs.com/Logic0/archive/2009/08/01/1850336.html" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);" title="发布于2009-08-01 01:46">C语言中关于string的字符函数</a><br/><a href="http://www.cnblogs.com/Logic0/archive/2009/08/03/1850338.html" style="outline:none;color:rgb(102, 153, 204);text-decoration:none;">» </a> 下一篇：<a href="http://www.cnblogs.com/Logic0/archive/2009/08/03/1850338.html" style="outline:none;text-decoration:none;color:rgb(102, 153, 204);" title="发布于2009-08-03 02:06">[转]一篇励志的文章——你尽力了吗？</a><br/></div>
+    </div>
+</div></div></div></div></div></div></div></div><br/></div></span>
+</div></body></html> 

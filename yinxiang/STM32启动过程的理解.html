@@ -1,0 +1,319 @@
+<html>
+<head>
+  <title>STM32启动过程的理解</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="945"/>
+<h1>STM32启动过程的理解</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/5/23 20:28</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://www.mamicode.com/info-detail-1161096.html"><i>http://www.mamicode.com/info-detail-1161096.html</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div style="font-family:Arial, Helvetica, sans-serif;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;background-color:rgb(255, 255, 255);"><div style="font-family:Arial, Helvetica, sans-serif;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;background-color:rgb(255, 255, 255);"><div style="font-family:Arial, Helvetica, sans-serif;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;"><div style="font-family:Arial, Helvetica, sans-serif;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;"><div style="font-family:Arial, Helvetica, sans-serif;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;">
+                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;">
+    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;float:left;">
+        
+        
+        <ins style="font-family:Arial, Helvetica, sans-serif;padding:0px;display:inline-block;width:336px;height:280px;"></ins>
+        
+    </div>
+    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;float:right;">
+        
+        
+    </div>
+    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;clear:both;">
+    </div>
+</div>
+
+                <div style="text-align:center;font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:16px;color:rgb(2, 62, 154);padding:15px 0px;border-bottom-width:1px;border-bottom-style:dotted;border-bottom-color:rgb(218, 218, 218);font-weight:bold;word-wrap:break-word;">
+                    <h1 style="font-family:Arial, Helvetica, sans-serif;padding:15px 0px;color:rgb(2, 62, 154);font-size:16px;font-weight:bold;word-wrap:break-word;">STM32启动过程的理解</h1>
+                </div>
+                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;margin:20px 0px;">
+                    时间：<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">2015-12-25 23:37:56</span>
+                         阅读：<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">455</span>
+                         评论：<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">0</span>
+                         收藏：<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">0</span>
+                         <a style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(51, 51, 51);cursor:pointer;">[点我收藏+]</a>
+                </div>
+                
+                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:12px;text-align:left;margin:20px 0px;line-height:30px;word-wrap:break-word;">
+                    <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">标签：</p><p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">  对于STM32启动的过程，想象中应该是这样的<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">上电---&gt;启动----&gt;main()</span></span></strong></p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">       由于现在的集成开发环境，对于C语言之下的东西似乎都被屏蔽了，另外用编程也大都用封装好的库函数，连对寄存器的了解都少了一大步，但是这样总是让人觉得根基不够稳重。今天就整理下启动代码的理解，补充一下。</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:18pt;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:楷体;padding:0px;">1.STM32存储器的组织</span></strong></span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><img alt="技术分享" height="0" src="" style="font-family:Arial, Helvetica, sans-serif;padding:0px;max-width:680px;overflow:hidden;" width="0"></img></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">     STM32作为32bit的操作系统，自然是2^32的寻址范围，所以正好是4GB的空间，再看一下对这个<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">4GB是怎么分配的</span></span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;"><img src="STM32启动过程的理解_files/829690-20151225222126421-1244049889.png" type="image/png" alt="技术分享" height="192" style="font-family:Arial, Helvetica, sans-serif;padding:0px;max-width:680px;overflow:hidden;display:block;margin-left:auto;margin-right:auto;" width="680"/></span></span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><img alt="技术分享" height="0" src="" style="font-family:Arial, Helvetica, sans-serif;padding:0px;max-width:680px;overflow:hidden;" width="0"></img></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">       8*512MB=4GB，图上很清晰了，一共分为  Code区  SRAM 外设 扩展 CM3外设等部分。而其中的Code中间的有一部分便是嵌入式闪存，也就是常说的Flash。不同的STM32型号Flash大小不一样，但是其实的地址都是0x08000000。</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> <img src="STM32启动过程的理解_files/829690-20151225222140984-2042772196.png" type="image/png" alt="技术分享" height="519" style="font-family:Arial, Helvetica, sans-serif;padding:0px;max-width:680px;overflow:hidden;display:block;margin-left:auto;margin-right:auto;" width="680"/></div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:楷体;padding:0px;font-size:18pt;">2.启动方式</span></strong></p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">        在STM32F10xxx里，可以通过BOOT[1:0]引脚选择三种不同启动模式。</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><img src="STM32启动过程的理解_files/829690-20151225222152343-1759850223.png" type="image/png" alt="技术分享" height="154" style="font-family:Arial, Helvetica, sans-serif;padding:0px;max-width:680px;overflow:hidden;display:block;margin-left:auto;margin-right:auto;" width="680"/></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><img alt="技术分享" height="0" src="" style="font-family:Arial, Helvetica, sans-serif;padding:0px;max-width:680px;overflow:hidden;" width="0"></img></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<ul style="font-family:Arial, Helvetica, sans-serif;padding:0px;">
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">很明显，第一种就是我们最常用的模式，从Flash启动，<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">主闪存存储器被映射到启动空间(0x0000 0000)</span></span></strong>，但仍然能够在它原 有的地址(0x0800 0000)访问它，即闪存存储器的内容<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">可以在两个地址区域访问</span></span></strong>，0x0000 0000或0x0800 0000。 </li>
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">第二种：从系统存储器启动，系统存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的 地址(互联型产品原有地址为0x1FFF B000，其它产品原有地址为0x1FFF F000)访问它。 这个是什么呢？这个就是我们用串行接口下载程序啦。因为里面已经固化了Bootloader【自举程序】。</li>
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">第三种：从SRAM启动，一般用于调试</li>
+</ul>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+</div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:楷体;padding:0px;font-size:18pt;">3.启动代码</span></strong></p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">分析对象         : startup_stm32f10x_hd.s   代码就不全放上来了，我一段段摘录和解释 </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;">Stack_Size      EQU     0x00000400</strong></span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;">                AREA    STACK, NOINIT, READWRITE, ALIGN=3</strong></span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;">Stack_Mem       SPACE   Stack_Size</strong></span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;">__initial_sp</strong></span></div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"> </strong></span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">这是进来的第一段，先解释下指令   ：</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<ul style="font-family:Arial, Helvetica, sans-serif;padding:0px;">
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">EQU 就相当于#define，上面就是Stack_Size为0x400字节</li>
+</ul>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">                                                           </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<ul style="font-family:Arial, Helvetica, sans-serif;padding:0px;">
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">AREA 用法 ： AREA 段名 属性1 属性2 属性N  </li>
+</ul>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          AREA伪指令用于定义一个代码段或数据段。其中，段名若以数字开头，则该段名需用“|”括起来，如：|1_test| 。     </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          属性字段表示该代码段（或数据段）的相关属性，多个属性用逗号分隔。常用的属性如下：    </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          — CODE 属性：用于定义代码段，默认为READONLY 。    </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          — DATA 属性：用于定义数据段，默认为READWRITE 。     </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          — READONLY 属性：指定本段为只读，代码段默认为READONLY 。    </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          — READWRITE 属性：指定本段为可读可写，数据段的默认属性为READWRITE 。    </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          — ALIGN 属性：使用方式为ALIGN表达式。在默认时，ELF（可执行连接文件）的代码段和数据段是按字对齐的，表达式的取值范围为0～31，相应的对齐方式为2表达式次方。    </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          — COMMON 属性：该属性定义一个通用的段，不包含任何的用户代码和数据。各源文件中同名的COMMON段共享同一段存储单元。 </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">          所以上文就是<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">定义一个数据段，其段名为STACK，可读可写，2^3=8字节对齐</span></span></strong>【NOINIT：指定此数据段仅仅保留了内存单元，而没有将各初始值写入内存单元，或者将各个内存单元值初始化为0】</div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<ul style="font-family:Arial, Helvetica, sans-serif;padding:0px;">
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">Stack_Mem    栈空间的开辟：开辟一个空间大小为Stack_Size的内存空间</li>
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">标号 __initial_sp   其实就是在开辟的空间的顶部做一个标记，记录下这个地址，以后这个地址就代表这个空间的顶部，也就是栈顶啦。</li>
+</ul>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">Heap_Size       EQU     0x00000200</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                AREA    HEAP, NOINIT, READWRITE, ALIGN=3</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">__heap_base</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">Heap_Mem        SPACE   Heap_Size</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">__heap_limit</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"> </span></strong></div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">有了前面这一段就非常好理解了，就是申请了<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">大小为0x400字节的堆空间，其中堆空间的开始是_heap_base 它的顶部是_heap_limit</span></span></strong>。  另外由于这两段的可读写数据，所以实际上他们都是在SRAM上长的</p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"> </span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">PRESERVE8</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">THUMB</span></strong></div>
+</div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">这样个好理解，1个就是8字节对齐，另外一个是使用THUMB指令</p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                AREA    RESET, DATA, READONLY</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                EXPORT  __Vectors</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                EXPORT  __Vectors_End</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                EXPORT  __Vectors_Size</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"> </span></strong></div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">接下来又是申请拉，但是这次申请的只读数据段 ， 这里也是挺奇怪的，不知道改成<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">AREA    RESET, CODE, READONLY </span></strong>会不会一样，以为实际来说应该就是code了，这里的地址空间地址就是0x08000000啦</p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">然后EXPORT，【在程序中声明一个全局的标号__Vectors，该标号可在其他的文件中引用】   </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">_Vectors        DCD     __initial_sp            </span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                       DCD     Reset_Handler        </span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                       DCD     NMI_Handler  </span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                       ........</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                       DCD     DMA2_Channel2_IRQHandler   ; DMA2 Channel2</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                       DCD     DMA2_Channel3_IRQHandler   ; DMA2 Channel3</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                       DCD     DMA2_Channel4_5_IRQHandler ; DMA2 Channel4 &amp; Channel5</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">__Vectors_End</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">__Vectors_Size  EQU  __Vectors_End - __Vectors</span></strong></p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"> </span></strong></div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">当当，这个就是传说中的中断向量表了，DCD 可以理解为&amp;，类比下，&amp;a，在C里面什么意思呢，就是取地址喽，那么就是将__initial_sp的地址，也就是栈空间的顶部地址，这个信息，存放在0x08000000里面，同理，复位中断向量不用说了，就在0x08000004里面啦。最后是一个中断向量的大小了</p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">AREA    |.text|, CODE, READONLY</span></strong></p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">这个好理解，定义了代码段，代码段的段名为.text，只读</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">; Reset handler</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">Reset_Handler   PROC</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                            EXPORT  Reset_Handler             [WEAK]</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                            IMPORT  __main</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">    <strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">            </span></strong>            IMPORT  SystemInit</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">      <strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">            </span></strong>          LDR     R0, =SystemInit</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">      <strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">            </span></strong>          BLX     R0               </span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">      <strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">            </span></strong>          LDR     R0, =__main</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">      <strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">            </span></strong>          BX      R0</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">        <strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">            </span></strong>        ENDP</span></strong></div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">OK，终于到了主角了，PROC.....EDNP  代表 程序开始和结束   </p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<ul style="font-family:Arial, Helvetica, sans-serif;padding:0px;">
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">EXPORT  Reset_Handler             [WEAK]  </span></strong>关于这个[weak] 。 相当于说  如果其他地方有Reset_Handler这个函数，那你就别用我了，去用那个复位中断服务程序吧，没得选了，你最后选我就可以了。</li>
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">下面就是 需要调用的两个函数啦</li>
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">通过LDR将地址给R0，BLX就是有3个功能   1.跳转到SystemInit 2.改变当前指令THUMB---&gt;ARM 3.回来  </li>
+<li style="font-family:Arial, Helvetica, sans-serif;padding:0px;table-layout:fixed;word-break:break-all;word-wrap:break-word;">而最后呢，跳转到__main【C/C++标准实时库的__main函数】<span style="font-family:Tahoma, Helvetica, SimSun, sans-serif;padding:0px;"> ，通过__main最后走进main，进入到C的世界中。</span></li>
+</ul>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Tahoma, Helvetica, SimSun, sans-serif;padding:0px;">其实这里有个疑惑 ，就是这个程序是存在哪里的，是接着上面的中断向量表继续存在Flash中么。</span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Tahoma, Helvetica, SimSun, sans-serif;padding:0px;"> </span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><span style="font-family:Tahoma, Helvetica, SimSun, sans-serif;padding:0px;">最后这个代码段还有很多代码，但是都形如</span></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">NMI_Handler     PROC</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                EXPORT  NMI_Handler                [WEAK]</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                B       .</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">                ENDP</span></strong></div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">其实这些都是留给需要的时候写的，  B   .  代表的跳转到自身，也就是死循环了，除非你在其他地方定义了NMI_Handler函数</p>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;"> </span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+</div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">Base Addr    Size         Type   Attr      Idx    E Section Name        Object</span></strong>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    0x08000000   0x00000130   Data   RO          519    RESET               startup_stm32f10x_hd.o</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    0x0800228c   0x00000024   Code   RO          520    .text               startup_stm32f10x_hd.o</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+</div>
+</div>
+</div>
+<strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">Base Addr    Size         Type   Attr      Idx    E Section Name        Object</span></strong>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    0x20000038   0x00000400   Zero   RW          517    STACK               startup_stm32f10x_hd.o</div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:underline;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#ff0000;">这里我们可以看到我们建立的3个AREA具体在存储器的哪里。但是我很奇怪为什么没有heap</span></span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+</div>
+</div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">Global Symbols</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><strong style="font-family:Arial, Helvetica, sans-serif;padding:0px;"><span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:#002060;">    Symbol Name                              Value     Ov Type        Size  Object(Section)</span></strong></div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    __Vectors_Size                           0x00000130   Number         0  startup_stm32f10x_hd.o ABSOLUTE</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    __Vectors                                   0x08000000   Data               4  startup_stm32f10x_hd.o(RESET)</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    __Vectors_End                           0x08000130   Data               0  startup_stm32f10x_hd.o(RESET)</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">    Reset_Handler                          0x0800228d   Thumb Code 8  startup_stm32f10x_hd.o(.text)</div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">也就是说 在中断向量表中  0x08000004 这个地址里面存放了 0x0800228d 【也就是Reset_Handler这个入口地址】</div>
+<p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"> </p><p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;"><a href="http://www.mamicode.com/info-detail-1161096.html" style="font-family:Arial, Helvetica, sans-serif;padding:0px;text-decoration:none;color:#ffffff;" target="_blank" title="STM32启动过程的理解,mamicode.com">STM32启动过程的理解</a></p><p style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;line-height:30px;">标签：</p></span>
+                </div>
+                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;">
+                    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;">
+                        <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;overflow:auto;text-align:center;padding-right:2px;">
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;width:60px;margin-left:20px;float:right;cursor:pointer;">
+                                <div style="font-family:Arial, Helvetica, sans-serif;text-decoration:none;padding:10px 0px 6px;font-size:22px;color:rgb(16, 101, 231);font-weight:bold;width:60px;border:1px solid rgb(225, 225, 225);">
+                                    踩</div>
+                                <div style="border-left-style:solid;font-family:Arial, Helvetica, sans-serif;border-left-color:rgb(225, 225, 225);font-size:12px;text-decoration:none;border-bottom-width:1px;font-weight:bold;border-left-width:1px;padding:5px 0px;color:rgb(16, 101, 231);width:60px;border-bottom-style:solid;border-bottom-color:rgb(225, 225, 225);border-right-width:1px;border-right-style:solid;border-right-color:rgb(225, 225, 225);">
+                                    (<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">0</span>)</div>
+                            </div>
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;width:60px;float:right;cursor:pointer;">
+                                <div style="font-family:Arial, Helvetica, sans-serif;text-decoration:none;padding:10px 0px 6px;font-size:22px;color:rgb(218, 70, 49);font-weight:bold;width:60px;border:1px solid rgb(225, 225, 225);">
+                                    赞</div>
+                                <div style="border-left-style:solid;font-family:Arial, Helvetica, sans-serif;border-left-color:rgb(225, 225, 225);font-size:12px;text-decoration:none;border-bottom-width:1px;font-weight:bold;border-left-width:1px;padding:5px 0px;color:rgb(218, 70, 49);width:60px;border-bottom-style:solid;border-bottom-color:rgb(225, 225, 225);border-right-width:1px;border-right-style:solid;border-right-color:rgb(225, 225, 225);">
+                                    (<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">0</span>)</div>
+                            </div>
+                        </div>
+                        <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:right;margin-top:10px;">
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;width:100%;padding-left:10px;padding-right:10px;">
+                                <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-weight:bold;color:rgb(218, 70, 49);"></span>  <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-weight:bold;color:rgb(16, 101, 231);"></span>  <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-weight:bold;color:rgb(218, 70, 49);">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:right;margin-top:10px;">
+                        <span style="font-family:Arial, Helvetica, sans-serif;padding:4px 8px;color:red;font-size:14px;font-weight:bold;border:1px solid rgb(225, 225, 225);cursor:pointer;">举报</span>
+                    </div>
+                    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;margin-top:20px;">
+    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;float:left;">
+        
+        
+        <ins style="font-family:Arial, Helvetica, sans-serif;padding:0px;display:inline-block;width:336px;height:280px;"></ins>
+        
+    </div>
+    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;float:right;">
+        
+        
+    </div>
+    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;clear:both;">
+    </div>
+</div>
+<div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;margin-top:20px;">
+    
+    
+</div>
+
+                    <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:left;margin-top:20px;">
+                        <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;height:30px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgb(225, 225, 225);">
+                            <span style="border-top-width:1px;font-family:Arial, Helvetica, sans-serif;border-top-style:solid;float:left;display:block;border-left-width:1px;border-left-style:solid;border-left-color:rgb(225, 225, 225);padding:5px 20px 4px;text-align:center;border-top-color:rgb(225, 225, 225);border-right-width:1px;border-right-style:solid;border-right-color:rgb(225, 225, 225);font-size:18px;font-weight:bold;color:rgb(93, 93, 93);">评论</span> <span style="font-family:Arial, Helvetica, sans-serif;padding:10px 0px 2px 5px;float:left;text-align:center;display:block;">一句话评论（<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-weight:bold;color:rgb(218, 70, 49);">0</span>）</span>
+                        </div>
+                        <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;padding-top:20px;">
+                            
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;margin-top:20px;">
+                                <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;">共<span style="font-family:Arial, Helvetica, sans-serif;padding:0px;color:rgb(218, 70, 49);font-weight:bold;">0</span>条  </span>
+                            </div>
+                        </div>
+                        <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;margin-top:20px;">
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;">
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:left;padding-top:20px;">
+                                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;background-color:rgb(249, 249, 249);">
+                                </div>
+                                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;">
+                                    
+                                </div>
+                            </div>
+                            <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:right;padding-top:10px;">
+                                <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-weight:bold;color:rgb(218, 70, 49);">登录后才能评论！</span>
+                                <span style="font-family:Arial, Helvetica, sans-serif;padding:0px;"></span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-family:Arial, Helvetica, sans-serif;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;padding-top:20px;">
+    
+    
+    
+    
+</div>
+
+            </div></div></div></div></div></div><br/></div></span>
+</div></body></html> 

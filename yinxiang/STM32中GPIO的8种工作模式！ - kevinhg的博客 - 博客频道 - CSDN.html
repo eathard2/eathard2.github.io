@@ -1,0 +1,196 @@
+<html>
+<head>
+  <title>STM32中GPIO的8种工作模式！ - kevinhg的博客 - 博客频道 - CSDN.NET</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="788"/>
+<h1>STM32中GPIO的8种工作模式！ - kevinhg的博客 - 博客频道 - CSDN.NET</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/4/19 23:08</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://blog.csdn.net/kevinhg/article/details/17490273"><i>http://blog.csdn.net/kevinhg/article/details/17490273</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div><div style="background:url(&quot;http://static.blog.csdn.net/skin/light_blue/css/../images/body_bg.jpg&quot;) center top repeat-x;font-size:12px;font-family:Arial, Console, Verdana, &quot;Courier New&quot;;"><div style="background:url(&quot;http://static.blog.csdn.net/skin/light_blue/css/../images/head_bg.jpg&quot;) center -25px no-repeat;"><div style="text-align:left;"><div style="overflow:hidden;"><div style="min-width:700px;background:rgb(255, 255, 255);"><div>
+    <div style="display:block;margin:5px 0px;color:rgb(0, 0, 0);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;">   
+         <span style="display:inline-block;width:19px;height:19px;margin:0px 2px 0px 0px;background:url(&quot;http://static.blog.csdn.net/skin/light_blue/css/../../../images/ico_Repost.gif&quot;) 0px 0px no-repeat;vertical-align:middle;"></span>
+
+
+    <h1 style="font-size:20px;padding:0px;margin:0px;font-weight:normal;font-stretch:normal;font-style:normal;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;vertical-align:middle;font-variant:normal;display:inline;">
+        <span><a href="http://blog.csdn.net/kevinhg/article/details/17490273" style="text-decoration:none;color:rgb(51, 51, 51);">
+        STM32中GPIO的8种工作模式！            
+        </a></span>
+    </h1>
+<span style="color:rgb(0, 0, 0);font-style:normal;font-variant:normal;font-weight:normal;font-size:20px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+
+   
+
+        <div style="line-height:22px;padding:0px 20px 5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;color:rgb(153, 153, 153);font-family:Arial;text-align:right;display:block;border-bottom:1px solid rgb(237, 237, 237);margin:0px -20px;overflow:hidden;">
+        <div>
+            <span style="margin:0px 5px 0px 0px;">2013-12-22 22:54</span>
+            <span style="margin:0px 5px;padding:0px 0px 0px 14px;background:url(&quot;http://static.blog.csdn.net/css/../../../images/ico_view.png&quot;) left center no-repeat;" title="阅读次数">36665人阅读</span>
+            <span style="margin:0px 5px;padding:0px 0px 0px 14px;background:url(&quot;http://static.blog.csdn.net/css/../../../images/ico_comm.png&quot;) left center no-repeat;" title="评论次数"> <a href="http://blog.csdn.net/kevinhg/article/details/17490273#comments" style="color:rgb(255, 153, 0);text-decoration:none;">评论</a>(6)</span>
+            <span style="margin:0px 5px;"> <a href="#" style="color:rgb(255, 153, 0);text-decoration:none;" title="收藏">收藏</a></span>
+             <span style="margin:0px 5px;"> <a href="http://blog.csdn.net/kevinhg/article/details/17490273#report" style="color:rgb(255, 153, 0);text-decoration:none;" title="举报">举报</a></span>
+
+        </div>
+    <span style="color:rgb(153, 153, 153);font-style:normal;font-variant:normal;font-weight:normal;font-size:12px;line-height:22px;font-family:Arial;text-align:right;display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+    
+    
+    
+      <div style="display:block;margin:0px -20px;border-bottom:1px solid rgb(237, 237, 237);padding:5px 20px;">
+        <div style="display:inline-block;font-size:14px;color:rgb(51, 51, 51);width:70px;float:left;line-height:28px;">
+           <img src="STM32中GPIO的8种工作模式！ - kevinhg的博客 - 博客频道 - CSDN_files/category_icon.jpg" type="image/jpeg" height="13" style="border:none;vertical-align:middle;" width="15"/>
+            <span style="display:inline-block;vertical-align:middle;">分类：</span>
+        </div>
+        <div style="display:inline-block;font-size:14px;color:rgb(223, 52, 52);float:left;width:90%;">
+                    <span style="display:inline-block;margin-left:15px;cursor:pointer;line-height:28px;position:relative;">
+                        <span>嵌入式系统<em style="font-style:normal;">（35）</em></span>
+                      <img src="STM32中GPIO的8种工作模式！ - kevinhg的博客 - 博客频道 - CSDN_files/arrow_triangle _down.jpg" type="image/jpeg" height="5" style="border:none;display:inline;" width="10"/>
+                      
+                        
+                    </span>                    
+        </div>
+    <span style="display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+      
+
+  
+
+  
+  
+     
+
+<div style="margin:20px 0px 0px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:26px;font-family:Arial;">
+
+<p align="left" style="margin:0px;padding:0px;"><span style="color:blue;"><span style="color:#000000;"><span style="font-size:14px;"><span style="color:blue;">一、推挽输出：</span>可以输出高、低电平，连接数字器件；推挽结构一般是指两个三极管分别受两个互补信号的控制，总是在一个三极管导通的时候另一个截止。高低电平由<span>IC</span>的电源决定。</span></span></span></p>
+<p style="margin:0px;padding:0px;"><strong><span style="font-size:14px;"><span style="color:black;">        推挽电路是两个参数相同的三极管或</span><span style="color:black;">MOSFET，</span><span style="color:black;">以推挽方式存在于电路中，</span><span style="color:black;">各负责正负半周的波形放大任务，</span><span style="color:black;">电路工作时，两只对称的功率开关管每次只有一个导通，所以导通损耗小</span><span style="color:black;">、</span><span style="color:black;">效率高。输出既可以向负载灌电流，也可以从负载抽取电流</span><span style="color:black;">。</span><span style="color:#cc0000;">推拉式输出级既提高电路的负载能力，又提高开关速度。</span></span></strong></p>
+<p style="margin:0px;padding:0px;"><span style="color:#000000;"><span style="font-size:14px;"><span style="color:blue;">二、开漏输出：</span>输出端相当于三极管的集电极，要得到高电平状态需要上拉电阻才行。适合于做电流型的驱动，其吸收电流的能力相对强（一般<span>20mA</span>以内）。</span></span><span style="font-size:14px;color:#000000;">开漏形式的电路有以下几个特点：</span></p>
+<p style="margin:0px;padding:0px;"><span style="color:#000000;"><span style="font-size:14px;"><span><strong>       </strong>1、<span></span><span></span><span></span><span></span></span>利用外部电路的驱动能力，减少<span>IC</span>内部的驱动。当<span>IC</span>内部<span>MOSFET</span>导通时，驱动电流是从外部的<span>VCC</span>流经上拉电阻、<span>MOSFET</span>到<span>GND</span>。<span>IC</span>内部仅需很小的栅极驱动电流。</span></span></p>
+<p style="margin:0px;padding:0px;"><span style="font-size:14px;"><span><span style="color:#000000;"><span>        </span>
+2、</span><span></span><span></span><span></span><span></span></span><span style="color:black;">一般来说，开漏是用来连接不同电平的器件，匹配电平用的</span><span style="color:black;">，因为</span><span style="color:black;">开漏</span><span style="color:black;">引脚</span><span style="color:black;">不连接外部的上拉电阻</span><span style="color:black;">时</span><span style="color:black;">，只能输出低电平</span><span style="color:black;">，如果需要同时具备输出高电平的功能，则需要接上拉电阻，很好的一个优点是</span><span style="color:#cc0000;">通过改变上拉电源的电压，便可以改变传输电平。</span><span style="color:black;">比如</span><span style="color:black;">加上上拉电阻就可以提供</span><span style="color:black;">TTL/CMOS</span><span style="color:black;">电平输出等。</span><span style="color:black;">（</span>上拉电阻的阻值决定了逻辑电平转换的速度<span></span>。阻值越大，速度越低功耗越小，<span style="color:black;">所以</span><span style="color:#cc0000;">负载电阻的选择要兼顾功耗和速度。</span>）</span></p>
+<p style="margin:0px;padding:0px;"><span style="font-size:14px;"><span><span style="color:#000000;"><span><span style="color:#000000;"><span><strong> </strong>      </span></span></span>3、</span>开漏输出<span></span><span></span><span></span><span></span></span><span style="color:black;">提供了灵活的输出方式，但是也有其弱点，就是带来上升沿的延时。因为上升沿是通过外接上拉无源电阻对负载充电，所以当电阻选择小时延时就小，但功耗大；反之延时大功耗小。所以如果对延时有要求，则建议用下降沿输出。</span></span></p>
+<p style="margin:0px;padding:0px;"><span style="font-size:14px;"><span><span style="color:#000000;"><span><span style="color:#000000;"><span><span style="color:#000000;"><span>       </span></span></span></span></span>4、</span><span></span><span></span><span></span><span></span></span><span style="color:black;">可以将多个开漏输出</span><span style="color:black;">连接到一条线上。通过一只上拉电阻，在不增加任何器件的情况下，形成</span><span style="color:black;">“</span><span style="color:black;">与逻辑</span><span style="color:black;">”</span><span style="color:black;">关系，即“线与”。</span></span><span style="font-size:14px;color:black;">可以简单的理解为：在所有引脚连在一起时，外接一上拉电阻，如果有一个引脚输出为逻辑<span>0</span>，相当于接地，与之并联的回路“相当于被一根导线短路”，所以外电路逻辑电平便为<span>0</span>，只有都为高电平时，与的结果才为逻辑<span>1</span>。</span></p>
+<p style="margin:0px;padding:0px;"><span style="font-size:14px;color:black;"><strong>   </strong>    关于推挽输出和开漏输出，最后用一幅最简单的图形来概括：该图中左边的便是推挽输出模式，其中比较器输出高电平时下面的PNP三极管截止，而上面NPN三极管导通，输出电平VS+；当比较器输出低电平时则恰恰相反，PNP三极管导通，输出和地相连，为低电平。右边的则可以理解为开漏输出形式，需要接上拉。</span></p>
+<p style="margin:0px;padding:0px;"><span style="font-size:14px;color:black;"><strong> <img src="STM32中GPIO的8种工作模式！ - kevinhg的博客 - 博客频道 - CSDN_files/20131222224529593.jpg" type="image/jpeg" alt="" height="203" style="border:none;max-width:100%;" width="414"/><br/>
+</strong></span></p>
+<p style="margin:0px;padding:0px;"><span style="color:black;"><span style="color:#0000cc;"><span style="font-size:14px;">三、浮空输入：<span style="color:#000000;">对于浮空输入，一直没找到很权威的解释，只好从以下图中去理解了</span></span></span></span></p>
+<p style="margin:0px;padding:0px;"><strong><span style="font-size:14px;color:black;"><img src="STM32中GPIO的8种工作模式！ - kevinhg的博客 - 博客频道 - CSDN_files/20131222224537750.jpg" type="image/jpeg" alt="" height="264" style="border:none;max-width:100%;" width="470"/></span></strong></p>
+<p style="margin:0px;padding:0px;"><span></span><span style="font-size:14px;"><strong>   </strong>   由于浮空输入一般多用于外部按键输入，结合图上的输入部分电路，我理解为浮空输入状态下，IO的电平状态是不确定的，完全由外部输入决定，如果在该引脚悬空的情况下，读取该端口的电平是不确定的。</span></p>
+<div><span style="color:#0000cc;"><span style="font-size:14px;">四、上拉输入/下拉输入/模拟输入：<span style="color:#000000;">这几个概念很好理解，从字面便能轻易读懂。</span></span></span></div>
+<div><span style="color:#0000ff;"><span style="font-size:14px;">五、复用开漏输出、复用推挽输出：<span style="color:#000000;">可以理解为GPIO口被用作第二功能时的配置情况（即并非作为通用IO口使用）</span></span></span></div>
+<div><span style="font-size:14px;">六、总结</span><span style="font-size:14px;">在STM32中选用IO模式<br/>
+<strong>   </strong>    1、浮空输入GPIO_IN_FLOATING ——浮空输入，可以做KEY识别，RX1<br/>
+<strong>   </strong>    2、带上拉输入GPIO_IPU——IO内部上拉电阻输入<br/>
+<strong>   </strong>    3、带下拉输入GPIO_IPD—— IO内部下拉电阻输入<br/>
+<strong>   </strong>    4、模拟输入GPIO_AIN ——应用ADC模拟输入，或者低功耗下省电<br/>
+<strong>   </strong>    5、开漏输出GPIO_OUT_OD ——IO输出0接GND，IO输出1，悬空，需要外接上拉电阻，才能实现输出高电平。当输出为1时，IO口的状态由上拉电阻拉高电平，但由于是开漏输出模式，这样IO口也就可以由外部电路改变为低电平或不变。可以读IO输入电平变化，实现C51的IO双向功能<br/>
+<strong>   </strong>    6、推挽输出GPIO_OUT_PP ——IO输出0-接GND， IO输出1 -接VCC，读输入值是未知的<br/>
+<strong>   </strong>    7、复用功能的推挽输出GPIO_AF_PP ——片内外设功能（I2C的SCL,SDA）<br/>
+<strong>   </strong>    8、复用功能的开漏输出GPIO_AF_OD——片内外设功能（TX1,MOSI,MISO.SCK.SS）<br/>
+七、STM32设置实例：<br/>
+<strong>   </strong>    1、模拟I2C使用开漏输出_OUT_OD，接上拉电阻，能够正确输出0和1；读值时先GPIO_SetBits(GPIOB, GPIO_Pin_0)；拉高，然后可以读IO的值；使用GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_0)；<br/>
+<strong>   </strong>    2、如果是无上拉电阻，IO默认是高电平；需要读取IO的值，可以使用带上拉输入_IPU和浮空输入_IN_FLOATING和开漏输出_OUT_OD；</span></div>
+<div><span style="font-size:14px;">八、</span><span style="font-size:14px;">通常有5种方式使用某个引脚功能，它们的配置方式如下：<br/>
+<strong>   </strong>   1、作为普通GPIO输入：根据需要配置该引脚为<u>浮空输入</u>、<u>带弱上拉输入</u>或<u>带弱下拉输入</u>，同时不要使能该引脚对应的所有复用功能模块。<br/>
+<strong>   </strong>   2、作为普通GPIO输出：根据需要配置该引脚为<u>推挽输出</u>或<u>开漏输出</u>，同时不要使能该引脚对应的所有复用功能模块。<br/>
+<strong>   </strong>   3、作为普通模拟输入：配置该引脚为<u>模拟输入模式</u>，同时不要使能该引脚对应的所有复用功能模块。<br/>
+<strong>   </strong>   4、作为内置外设的输入：根据需要配置该引脚为<u>浮空输入</u>、<u>带弱上拉输入</u>或<u>带弱下拉输入</u>，同时使能该引脚对应的某个复用功能模块。<br/>
+<strong>   </strong>   5、作为内置外设的输出：根据需要配置该引脚为<u>复用推挽输出</u>或<u>复用开漏输出</u>，同时使能该引脚对应的所有复用功能模块。<br/>
+<strong>   </strong>   注意如果有多个复用功能模块对应同一个引脚，只能使能其中之一，其它模块保持非使能状态。</span><span style="font-size:14px;">比如要使用STM32F103VBT6的47、48脚的USART3功能，则需要配置47脚为复用推挽输出或复用开漏输出，配置48脚为某种输入模式，同时使能USART3并保持I2C2的非使能状态。</span><span style="font-size:14px;">如果要使用STM32F103VBT6的47脚作为TIM2_CH3，则需要对TIM2进行重映射，然后再按复用功能的方式配置对应引脚。</span></div>
+   
+</div>
+
+
+
+
+
+
+
+
+
+<div style="float:right;">
+<a href="http://blog.csdn.net/kevinhg/article/details/17490273#" style="color:rgb(255, 153, 0);text-decoration:none;background-position:0 0 !important;background-image:url('http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png') !important;"></a>
+<a href="http://blog.csdn.net/kevinhg/article/details/17490273#" style="color:rgb(255, 153, 0);text-decoration:none;background-position:0 -52px !important;" title="分享到QQ空间"></a>
+<a href="http://blog.csdn.net/kevinhg/article/details/17490273#" style="color:rgb(255, 153, 0);text-decoration:none;background-position:0 -104px !important;" title="分享到新浪微博"></a>
+<a href="http://blog.csdn.net/kevinhg/article/details/17490273#" style="color:rgb(255, 153, 0);text-decoration:none;background-position:0 -260px !important;" title="分享到腾讯微博"></a>
+<a href="http://blog.csdn.net/kevinhg/article/details/17490273#" style="color:rgb(255, 153, 0);text-decoration:none;background-position:0 -208px !important;" title="分享到人人网"></a>
+<a href="http://blog.csdn.net/kevinhg/article/details/17490273#" style="color:rgb(255, 153, 0);text-decoration:none;background-position:0 -1612px !important;" title="分享到微信"></a>
+</div>
+
+
+
+   
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+        <div style="display:block;clear:both;width:182px;margin:0px auto;padding:30px 0px 15px;text-align:center;">
+            <dl style="display:inline-block;float:left;width:72px;height:72px;overflow:hidden;margin:0px 2px;background:rgb(255, 121, 0);text-align:center;color:rgb(255, 255, 255);cursor:pointer;">
+               
+                 <dt style="margin:0px;padding:12px 0px 3px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;">顶</dt>
+                <dd style="margin:0px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:22px;font-family:Arial;">18</dd>
+            </dl>
+           
+              
+            <dl style="display:inline-block;float:left;width:72px;height:72px;overflow:hidden;margin:0px 2px;background:rgb(255, 121, 0);text-align:center;color:rgb(255, 255, 255);cursor:pointer;">
+              
+                  <dt style="margin:0px;padding:12px 0px 3px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27px;line-height:30px;font-family:&quot;Microsoft YaHei&quot;;">踩</dt>
+                <dd style="margin:0px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:22px;font-family:Arial;">0</dd>               
+            </dl>
+            
+        <span style="text-align:center;display:block;height:0px;clear:both;visibility:hidden;">.</span></div>
+     <div><a href="#" style="color:rgb(255, 153, 0);text-decoration:none;"> </a>   </div>
+    <div> <a href="#" style="color:rgb(255, 153, 0);text-decoration:none;"> </a></div>
+    
+
+   <ul style="line-height:24px;display:block;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;color:rgb(102, 102, 102);font-family:&quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif;clear:both;float:left;margin:0px 0px 5px;padding:10px 0px 0px;margin-top:30px;">
+                <li style="list-style-type:none;clear:both;padding:0px 0px 3px;overflow:hidden;"><span style="color:rgb(255, 255, 255);display:block;width:52px;padding:0px 0px 0px 27px;height:26px;background-color:rgb(153, 153, 153);float:left;font-size:14px;margin-right:7px;background-image:url(&quot;http://static.blog.csdn.net/skin/light_blue/css/../images/blog-page-arr.png&quot;);background-repeat:no-repeat;background-position:9px 8px;">上一篇</span><a href="http://blog.csdn.net/kevinhg/article/details/17384251" style="text-decoration:none;display:block;float:left;font-size:14px;color:rgb(51, 51, 51);">fsolve函数求解非线性方程</a></li>
+                <li style="list-style-type:none;clear:both;padding:0px 0px 3px;overflow:hidden;"><span style="color:rgb(255, 255, 255);display:block;width:52px;padding:0px 0px 0px 27px;height:26px;background-color:rgb(153, 153, 153);float:left;font-size:14px;margin-right:7px;background-image:url(&quot;http://static.blog.csdn.net/skin/light_blue/css/../images/blog-page-arr.png&quot;);background-repeat:no-repeat;background-position:9px -22px;">下一篇</span><a href="http://blog.csdn.net/kevinhg/article/details/17517117" style="text-decoration:none;display:block;float:left;font-size:14px;color:rgb(51, 51, 51);">STM32时钟配置方法详解</a></li>
+    <span style="color:rgb(102, 102, 102);font-style:normal;font-variant:normal;font-weight:normal;font-size:14px;line-height:24px;font-family:&quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif;display:block;height:0px;clear:both;visibility:hidden;">.</span></ul>
+
+    <div style="clear:both;height:10px;"></div>
+
+
+        <div style="overflow:hidden;">
+                <h4 style="margin:0px;padding:0px;font-size:16px;color:rgb(51, 51, 51);">我的同类文章</h4>
+                <div style="border:1px solid rgb(187, 187, 187);margin:20px 0px 0px 0px;">
+                    <div style="line-height:45px;border-bottom:1px solid rgb(220, 220, 220);">
+                                <span style="display:inline-block;margin-left:25px;font-size:16px;color:rgb(102, 102, 102);font-weight:bold;">
+                                    <span style="cursor:pointer;">嵌入式系统<em style="font-style:normal;">（35）</em></span>
+                                </span>
+                    </div>
+                   
+                    <div style="background:rgb(252, 252, 252);max-height:195px;overflow-y:auto;padding:10px 20px;">
+                        
+                        <ul style="float:left;width:49%;list-style:none;margin:0px;padding:0px;"><li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/45339775" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="如何解决Keil5打红叉的问题">如何解决Keil5打红叉的问题</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2015-04-28</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">4470</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40991655" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="STM32串口第一个字节丢失问题的分析过程">STM32串口第一个字节丢失问题的分析过程</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-11-10</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">9415</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40409041" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="sprintf函数的用法">sprintf函数的用法</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-23</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">11613</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40186169" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="STM32串口中断接收方式详细比较">STM32串口中断接收方式详细比较</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-17</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">2981</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40085971" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="STM32串口发送中断">STM32串口发送中断</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-14</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">27027</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/17517117" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="STM32时钟配置方法详解">STM32时钟配置方法详解</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2013-12-24</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">64784</b></span></li> </ul>
+
+                        <ul style="float:right;width:49%;list-style:none;margin:0px;padding:0px;"><li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/41021489" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="关于STM32与SD卡通信的一些思考与总结">关于STM32与SD卡通信的一些思考与总结</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-11-11</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">2032</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40424403" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="STM32中断优先级概念">STM32中断优先级概念</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-24</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">1474</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40392967" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="标志位和中断位的区别：USART_ClearFlag和USART_ClearITPendingBit">标志位和中断位的区别：USART_ClearFlag和USART_ClearITPendingBit</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-23</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">4935</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40115519" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="关于STM32的变量定义">关于STM32的变量定义</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-15</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">5393</b></span></li> <li style="list-style:none;line-height:30px;"><em style="font-style:normal;display:inline-block;vertical-align:middle;margin-right:10px;">•</em><a href="http://blog.csdn.net/kevinhg/article/details/40016883" style="text-decoration:none;color:rgb(51, 51, 51);display:inline-block;width:50%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;" target="_blank" title="STM32中关于串口通信的printf()函数重定向问题">STM32中关于串口通信的printf()函数重定向问题</a><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;">2014-10-12</span><span style="font-size:12px;color:rgb(187, 187, 187);display:inline-block;margin-left:9px;"><i style="font-weight:normal;font-style:normal;">阅读</i><b style="font-weight:normal;font-style:normal;margin-left:5px;">6048</b></span></li> </ul>
+                    <a href="http://blog.csdn.net/kevinhg/article/category/592975" style="text-decoration:none;color:rgb(102, 102, 102);clear:both;display:block;height:35px;line-height:35px;background:rgb(252, 252, 252);font-size:12px;text-align:center;">更多文章</a></div>
+                </div>
+            </div>    
+    
+      
+</div></div></div></div></div></div></div></div><br/></div></span>
+</div></body></html> 

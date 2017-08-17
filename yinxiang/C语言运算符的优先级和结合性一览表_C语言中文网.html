@@ -1,0 +1,988 @@
+<html>
+<head>
+  <title>C语言运算符的优先级和结合性一览表_C语言中文网</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="772"/>
+<h1>C语言运算符的优先级和结合性一览表_C语言中文网</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/4/14 16:05</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://c.biancheng.net/cpp/html/462.html"><i>http://c.biancheng.net/cpp/html/462.html</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div><div style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:normal;font-family:微软雅黑, &quot;Microsoft Yahei&quot;, Arial, Helvetica, sans-serif;color:rgb(51, 51, 51);background-color:rgb(246, 246, 246);"><div style="background:url(&quot;../images/sidebar-arc-split.png&quot;) -360px 0px repeat-y rgb(255, 255, 255);border-radius:4px;background-color:rgb(238, 238, 238);"><div>
+	<h1 style="margin-top:0px;margin-bottom:0px;padding:15px 0px;font-size:20px;color:rgb(68, 68, 68);">C语言运算符的优先级和结合性一览表</h1>
+	<div style="margin-bottom:10px;padding:8px 0px;height:30px;border-top:1px solid rgb(229, 229, 229);border-bottom:1px solid rgb(229, 229, 229);line-height:30px;color:rgb(102, 102, 102);">
+	<dl style="margin-top:0px;margin-bottom:0px;display:block;float:left;padding-left:16px;background:url(&quot;../images/icons.png&quot;) 0px -891px no-repeat;"><dt style="float:left;">分享到：</dt><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -589px no-repeat;">QQ空间</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -461px no-repeat;">新浪微博</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -525px no-repeat;">腾讯微博</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -557px no-repeat;">豆瓣</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -493px no-repeat;">人人网</dd></dl>
+<span style="line-height:30px;color:rgb(102, 102, 102);display:block;height:0px;clear:both;">​</span></div>
+	<div style="margin:15px 0px 10px;height:93px;">
+	
+		
+		<ins style="display:inline-block;width:728px;height:90px;"></ins>
+		
+</div>
+<div><p style="margin-top:0px;margin-bottom:10px;padding:8px 10px;border:1px dashed rgb(187, 187, 187);background-color:rgb(249, 249, 249);line-height:1.6em;border-radius:4px;"><a href="http://fudao.biancheng.net/" style="border:none;text-decoration:none;color:#D33428;" target="_blank">C语言中文网推出辅导班啦，包括<span style="color:#008000;">「C语言辅导班、C++辅导班、算法/数据结构辅导班」</span>，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践 + 永久学习。QQ在线，随时响应！</a></p></div>
+	<div style="margin-bottom:8px;line-height:1.6em;word-wrap:break-word;">C语言的运算符众多，具有不同的优先级和结合性，我们将它们全部列了出来，方便大家对比和记忆：
+<table style="font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;margin:auto;border-collapse:collapse;">
+	<tbody>
+		<tr>
+			<th style="padding:7px 5px;border:1px solid rgb(204, 204, 204);background-color:rgb(237, 237, 237);color:rgb(68, 68, 68);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					优先级</p>
+			</th>
+			<th style="padding:7px 5px;border:1px solid rgb(204, 204, 204);background-color:rgb(237, 237, 237);color:rgb(68, 68, 68);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					运算符</p>
+			</th>
+			<th style="padding:7px 5px;border:1px solid rgb(204, 204, 204);background-color:rgb(237, 237, 237);color:rgb(68, 68, 68);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					名称或含义</p>
+			</th>
+			<th style="padding:7px 5px;border:1px solid rgb(204, 204, 204);background-color:rgb(237, 237, 237);color:rgb(68, 68, 68);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					使用形式</p>
+			</th>
+			<th style="padding:7px 5px;border:1px solid rgb(204, 204, 204);background-color:rgb(237, 237, 237);color:rgb(68, 68, 68);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					结合方向</p>
+			</th>
+			<th style="padding:7px 5px;border:1px solid rgb(204, 204, 204);background-color:rgb(237, 237, 237);color:rgb(68, 68, 68);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					说明</p>
+			</th>
+		</tr>
+		<tr>
+			<td rowspan="4" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					1</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					[]</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					数组下标</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					数组名[常量表达式]</p>
+			</td>
+			<td rowspan="4" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					()</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					圆括号</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					（表达式）/函数名(形参表)</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					.</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					成员选择（对象）</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					对象.成员名</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					-&gt;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					成员选择（指针）</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					对象指针-&gt;成员名</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td rowspan="9" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					2</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					-</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					负号运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					-表达式</p>
+			</td>
+			<td rowspan="9" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					右到左</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					(类型)</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					强制类型转换</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					(数据类型)表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					++</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					自增运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					++变量名/变量名++</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					--</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					自减运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					--变量名/变量名--</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					*</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					取值运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					*指针变量</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&amp;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					取地址运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&amp;变量名</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					!</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					逻辑非运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					!表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					~</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位取反运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					~表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					单目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					sizeof</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					长度运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					sizeof(表达式)</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td rowspan="3" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					3</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					/</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					除</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式/表达式</p>
+			</td>
+			<td rowspan="3" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					*</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					乘</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式*表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					%</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					余数（取模）</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					整型表达式/整型表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					4</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					+</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					加</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式+表达式</p>
+			</td>
+			<td rowspan="2" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					-</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					减</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式-表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					5</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&lt;&lt;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左移</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量&lt;&lt;表达式</p>
+			</td>
+			<td rowspan="2" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&gt;&gt;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					右移</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量&gt;&gt;表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="4" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					6</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&gt;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					大于</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式&gt;表达式</p>
+			</td>
+			<td rowspan="4" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&gt;=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					大于等于</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式&gt;=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&lt;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					小于</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式&lt;表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&lt;=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					小于等于</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式&lt;=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					7</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					==</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					等于</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式==表达式</p>
+			</td>
+			<td rowspan="2" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					!=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					不等于</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式!= 表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					8</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&amp;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位与</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式&amp;表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					9</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					^</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位异或</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式^表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					10</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					|</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位或</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式|表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					11</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&amp;&amp;</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					逻辑与</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式&amp;&amp;表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					12</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					||</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					逻辑或</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式||表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					双目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					13</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					?:</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					条件运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式1? 表达式2: 表达式3</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					右到左</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					三目运算符</p>
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="11" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					14</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					赋值运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量=表达式</p>
+			</td>
+			<td rowspan="11" style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					右到左</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					/=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					除后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量/=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					*=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					乘后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量*=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					%=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					取模后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量%=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					+=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					加后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量+=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					-=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					减后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量-=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&lt;&lt;=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左移后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量&lt;&lt;=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&gt;&gt;=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					右移后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量&gt;&gt;=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					&amp;=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位与后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量&amp;=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					^=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位异或后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量^=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					|=</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					按位或后赋值</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					变量|=表达式</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				 </td>
+		</tr>
+		<tr>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					15</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					,</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					逗号运算符</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					表达式,表达式,…</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					左到右</p>
+			</td>
+			<td style="padding:5px;border:1px solid rgb(204, 204, 204);">
+				<p style="margin-top:0px;margin-bottom:0px;padding:5px 0px;">
+					从左向右顺序运算</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br/>
+<span style="color:#a52a2a;">注：同一优先级的运算符，运算次序由结合方向所决定。</span><br/>
+<br/>
+上面的表无需死记硬背，很多运算符的规则和数学中是相同的，用得多，看得多自然就记得了。如果你是在记不住，可以使用( )。<br/>
+<h2 style="margin:15px auto;font-size:18px;line-height:18px;">
+	一些容易出错的优先级问题</h2>
+上表中，优先级同为1 的几种运算符如果同时出现，那怎么确定表达式的优先级呢？这是很多初学者迷糊的地方。下表就整理了这些容易出错的情况：
+<div style="text-align:center;">
+	<img src="C语言运算符的优先级和结合性一览表_C语言中文网_files/Image.jpg" type="image/jpeg" alt="" height="318" style="border:none;cursor:pointer;max-width:728px;width:500px;height:318px;" width="500"/></div>
+这些容易出错的情况，希望读者好好在编译器上调试调试，这样印象会深一些。一定要多调试，光靠看代码，水平是很难提上来的。调试代码才是最长水平的。</div>
+	
+
+<div style="padding-bottom:12px;"><p style="margin-top:0px;margin-bottom:15px;padding:8px 10px;border:1px dashed rgb(187, 187, 187);background-color:rgb(249, 249, 249);line-height:1.6em;border-radius:4px;"><a href="http://fudao.biancheng.net/" style="border:none;text-decoration:none;color:#D33428;" target="_blank">C语言中文网推出辅导班啦，包括<span style="color:#008000;">「C语言辅导班、C++辅导班、算法/数据结构辅导班」</span>，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践 + 永久学习。QQ在线，随时响应！</a><span style="line-height:1.6em;display:block;height:0px;clear:both;">​</span></p>
+	<div style="display:block;float:left;">
+		
+		
+		<ins style="display:inline-block;width:300px;height:250px;"></ins>
+		
+	</div>
+
+	
+	<ul style="margin-top:0px;margin-bottom:0px;list-style:none;margin-left:0px;padding-left:0px;display:block;float:right;width:410px;">
+		<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2606.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">死锁预防和死锁避免</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2511.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">fgetchar()</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/3329.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">C语言求回文数</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/263.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">putchar()</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2506.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">fflush()</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2814.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">C语言求某一年的某一月有多少天问题</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2619.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">文件的属性、基本操作以及文件的打开和关闭</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2442.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">C语言选择排序算法及代码</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2516.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">fread()</a></li>
+<li style="height:25px;padding-left:10px;line-height:25px;background:url(&quot;../images/icons.png&quot;) 0px -1009px no-repeat;overflow:hidden;"><a href="http://c.biancheng.net/cpp/html/2819.html" style="border:none;text-decoration:none;color:rgb(0, 136, 204);" target="_blank">C语言统计英文字母、空格、数字和其它字符的数目</a></li>
+
+	</ul>
+<span style="display:block;height:0px;clear:both;">​</span></div>
+	<div style="margin-bottom:10px;padding:8px 0px;height:30px;border-top:1px solid rgb(229, 229, 229);border-bottom:1px solid rgb(229, 229, 229);line-height:30px;color:rgb(102, 102, 102);">
+	<dl style="margin-top:0px;margin-bottom:0px;display:block;float:left;padding-left:16px;background:url(&quot;../images/icons.png&quot;) 0px -891px no-repeat;"><dt style="float:left;">分享到：</dt><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -589px no-repeat;">QQ空间</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -461px no-repeat;">新浪微博</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -525px no-repeat;">腾讯微博</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -557px no-repeat;">豆瓣</dd><dd style="list-style:none;margin-left:0px;padding-left:18px;float:left;margin-right:12px;cursor:pointer;background:url(&quot;../images/icons.png&quot;) 0px -493px no-repeat;">人人网</dd></dl>
+<span style="line-height:30px;color:rgb(102, 102, 102);display:block;height:0px;clear:both;">​</span></div>
+	<div style="padding:10px 0px;clear:both;position:relative;overflow:visible;"><div style="font-weight:normal;font-size:13px;color:rgb(51, 51, 51);line-height:1;text-align:left;"><a name="respond" style="font-family:inherit;border:0px;box-sizing:content-box;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;overflow:visible;line-height:inherit;background:none;width:auto;height:auto;float:none;text-decoration:none;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);background-color:transparent;"></a><div style="font-size:inherit;box-sizing:content-box;font-family:inherit;padding:10px 0px 6px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;border:0px;margin:0px;line-height:inherit;background:none;width:100%;height:auto;float:none;overflow:visible;transition:none;position:relative;"><p style="font-family:inherit;box-sizing:content-box;line-height:24px;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;text-indent:0px;background:none;width:auto;height:auto;transition:none;overflow:visible;clear:none;float:left;margin:0px;">社交帐号登录:</p><div style="font-size:inherit;box-sizing:content-box;font-family:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;border:0px;margin:0px;line-height:inherit;background:none;overflow:visible;height:auto;transition:none;float:left;width:306px;"><ul style="font-size:inherit;list-style:none;border:0px;transition:none;overflow:visible;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;box-sizing:content-box;font-family:inherit;line-height:inherit;float:none;width:auto;height:auto;display:block;background:none;margin:0px;padding:0px;"><li style="font-family:inherit;box-sizing:content-box;line-height:inherit;display:block;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;list-style:none;transition:none;overflow:visible;background:none;height:16px;float:left;width:54px;margin:0px 0px 0px 6px;padding:4px 0px;"><a href="http://xidian-see.duoshuo.com/login/weixin/" rel="nofollow" style="background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/service-icons-color.png?v=2&quot;) no-repeat;border:0px;box-sizing:content-box;padding:0px;margin:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;width:auto;padding-right:3px;background-position:0px -272px;display:block;padding-left:20px;overflow:hidden;line-height:16px;vertical-align:middle;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);background-color:transparent;text-decoration:none;height:16px;">微信</a></li><li style="font-family:inherit;box-sizing:content-box;line-height:inherit;display:block;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;list-style:none;transition:none;overflow:visible;background:none;height:16px;float:left;width:54px;margin:0px 0px 0px 6px;padding:4px 0px;"><a href="http://xidian-see.duoshuo.com/login/weibo/" rel="nofollow" style="background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/service-icons-color.png?v=2&quot;) no-repeat;border:0px;box-sizing:content-box;padding:0px;margin:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;width:auto;padding-right:3px;background-position:0px 0px;display:block;padding-left:20px;overflow:hidden;line-height:16px;vertical-align:middle;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);background-color:transparent;text-decoration:none;height:16px;">微博</a></li><li style="font-family:inherit;box-sizing:content-box;line-height:inherit;display:block;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;list-style:none;transition:none;overflow:visible;background:none;height:16px;float:left;width:54px;margin:0px 0px 0px 6px;padding:4px 0px;"><a href="http://xidian-see.duoshuo.com/login/qq/" rel="nofollow" style="background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/service-icons-color.png?v=2&quot;) no-repeat;border:0px;box-sizing:content-box;padding:0px;margin:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;width:auto;padding-right:3px;background-position:0px -192px;display:block;padding-left:20px;overflow:hidden;line-height:16px;vertical-align:middle;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);background-color:transparent;text-decoration:none;height:16px;">QQ</a></li><li style="font-family:inherit;box-sizing:content-box;line-height:inherit;display:block;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;list-style:none;transition:none;overflow:visible;background:none;height:16px;float:left;width:54px;margin:0px 0px 0px 6px;padding:4px 0px;"><a href="http://xidian-see.duoshuo.com/login/renren/" rel="nofollow" style="background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/service-icons-color.png?v=2&quot;) no-repeat;border:0px;box-sizing:content-box;padding:0px;margin:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;width:auto;padding-right:3px;background-position:0px -32px;display:block;padding-left:20px;overflow:hidden;line-height:16px;vertical-align:middle;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);background-color:transparent;text-decoration:none;height:16px;">人人</a></li><li style="font-family:inherit;box-sizing:content-box;line-height:inherit;display:block;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;list-style:none;transition:none;overflow:visible;background:none;height:16px;float:left;width:54px;margin:0px 0px 0px 6px;padding:4px 0px;"><a href="#" style="line-height:16px;border:0px;box-sizing:content-box;padding:0px;margin:0px;overflow:visible;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;float:none;background:none;width:auto;height:auto;vertical-align:middle;padding-right:3px;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;display:block;color:rgb(221, 51, 34);">更多»</a></li></ul></div><span style="font-style:inherit;font-variant:inherit;font-weight:inherit;font-size:inherit;font-family:inherit;line-height:inherit;display:block;height:0px;clear:both;visibility:hidden;">.</span></div><div style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px 0px 0px 60px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:12px;border:0px;margin:8px 0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;z-index:3;position:relative;"><a href="#" style="background:none;border:0px;box-sizing:content-box;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;line-height:inherit;overflow:visible;width:auto;height:auto;border-radius:3px;float:left;box-shadow:rgba(255, 255, 255, 0.74902) 0px 1px 1px;transition:color 0.15s linear;text-decoration:none;background-color:transparent;cursor:pointer;color:rgb(119, 119, 119);position:absolute;top:0px;left:0px;"><img src="C语言运算符的优先级和结合性一览表_C语言中文网_files/141794.jpg" type="image/jpeg" alt="" height="50" style="line-height:inherit;border:0px;padding:0px;transition:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;box-sizing:content-box;background:none;overflow:visible;float:none;display:block;max-width:none;box-shadow:rgba(0, 0, 0, 0.219608) 0px 1px 3px;border-radius:3px;height:50px;width:50px;margin:0px;visibility:visible;" width="50"/></a><div style="font-size:inherit;box-sizing:content-box;font-family:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;border:0px;margin:0px;line-height:inherit;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;">
+
+<div style="width:auto;box-sizing:content-box;height:auto;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;line-height:inherit;transition:none;border:0px;margin:0px;float:none;border-top:1px solid rgb(204, 204, 204);overflow:hidden;border-top-right-radius:3px;border-top-left-radius:3px;position:relative;background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/bg_sprites.png&quot;) 0px -90px repeat-x rgb(255, 255, 255);border-right:1px solid rgb(204, 204, 204);border-left:1px solid rgb(204, 204, 204);border-image:initial;border-bottom:none;padding-right:20px;"><pre style="line-height:20px;word-wrap:break-word;border:none;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:13px;font-family:&quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;box-sizing:content-box;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;visibility:hidden;position:absolute;top:0px;left:10px;right:10px;display:block;"></pre></div><div style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;margin:0px;background:none;transition:none;height:auto;float:none;overflow:visible;width:100%;position:relative;box-shadow:rgba(255, 255, 255, 0.6) 0px 1px 0px;"><div style="width:auto;box-sizing:content-box;height:30px;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;line-height:inherit;transition:none;border:0px;margin:0px;float:none;overflow:visible;background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/bg_sprites.png&quot;) 0px -60px repeat-x;position:relative;margin-right:100px;border-top:1px solid rgb(204, 204, 204);border-bottom:1px solid rgb(170, 170, 170);border-left:1px solid rgb(204, 204, 204);border-image:initial;border-right:none;border-bottom-left-radius:3px;"><span style="line-height:30px;box-sizing:content-box;background:none;padding:0px;display:inline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;transition:none;font-family:inherit;border:0px;margin:0px;overflow:visible;height:auto;float:none;font-size:12px;color:rgb(153, 153, 153);position:absolute;right:5px;width:auto;vertical-align:middle;"></span></div><div style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;margin:0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;position:absolute;top:5px;left:6px;"><a style="line-height:inherit;border:0px;box-sizing:content-box;padding:0px;margin:0px;overflow:visible;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;transition:opacity 0.15s linear;text-decoration:none;color:rgb(119, 119, 119);cursor:pointer;float:left;background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/sprites.png&quot;) no-repeat transparent;height:19px;display:block;margin-right:4px;opacity:0.6;background-position:0px -48px;vertical-align:middle;width:19px;" title="插入图片"></a></div></div></div><span style="font-style:inherit;font-variant:inherit;font-weight:inherit;font-size:12px;font-family:inherit;line-height:inherit;display:block;height:0px;clear:both;visibility:hidden;">.</span></div><div style="font-family:inherit;box-sizing:content-box;line-height:25px;padding:8px 0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:13px;border:0px;margin:0px;background:none;width:100%;height:auto;float:none;overflow:visible;transition:none;margin-top:10px;position:relative;"><div style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;margin:0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;position:absolute;right:0px;top:8px;"><a style="font-family:inherit;border:0px;box-sizing:content-box;overflow:visible;float:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;height:auto;line-height:inherit;background:none;width:auto;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;margin:0px 2px;padding:0px 4px;color:rgb(221, 51, 34);">最新</a><a style="font-family:inherit;border:0px;box-sizing:content-box;overflow:visible;float:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;height:auto;line-height:inherit;background:none;width:auto;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;margin:0px 2px;padding:0px 4px;color:rgb(153, 153, 153);">最早</a><a style="font-family:inherit;border:0px;box-sizing:content-box;overflow:visible;float:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;height:auto;line-height:inherit;background:none;width:auto;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;margin:0px 2px;padding:0px 4px;color:rgb(153, 153, 153);">最热</a></div><ul style="font-size:inherit;list-style:none;border:0px;transition:none;overflow:visible;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;box-sizing:content-box;font-family:inherit;line-height:inherit;float:none;width:auto;height:auto;display:block;background:none;margin:0px;padding:0px;"><li style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:13px;border:0px;margin:0px 5px 0px 0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;list-style:none;display:inline;"><a href="#" style="line-height:inherit;border-radius:5px;box-sizing:content-box;padding:3px 5px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;text-decoration:none;background:none;width:auto;height:auto;float:none;overflow:visible;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);display:inline;text-shadow:rgb(255, 255, 255) 0px 1px 0px;background-color:rgba(0, 0, 0, 0.0392157);border:1px solid rgb(204, 204, 204);"><span style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;display:inline;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;margin:0px 2px 0px 0px;color:rgb(221, 51, 34);">1</span>条问答</a></li>  </ul></div><ul style="font-size:inherit;list-style:none;border:0px;display:block;transition:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;box-sizing:content-box;font-family:inherit;line-height:inherit;overflow:visible;float:none;height:auto;background:none;margin:0px;padding:0px;width:100%;border-bottom:1px solid rgba(0, 0, 0, 0.129412);"><li style="line-height:inherit;box-sizing:content-box;background:none;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;border:0px;margin:0px;width:100%;height:auto;float:none;overflow:hidden;transition:none;list-style:none;display:block;clear:both;border-top:1px solid rgba(0, 0, 0, 0.129412);"><div style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:10px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;border:0px;margin:0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;position:relative;border-top:1px solid rgba(255, 255, 255, 0.701961);"><div style="line-height:inherit;box-sizing:content-box;background:none;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;border:0px;margin:0px;width:auto;height:auto;transition:none;overflow:visible;float:left;box-shadow:rgba(255, 255, 255, 0.74902) 0px 1px 1px;position:relative;border-radius:3px;background-color:rgb(255, 255, 255);"><a href="http://t.qq.com/cliangcliang" rel="nofollow author" style="font-family:inherit;border:0px;box-sizing:content-box;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;overflow:visible;line-height:inherit;background:none;width:auto;height:auto;float:none;text-decoration:none;transition:color 0.15s linear;cursor:pointer;color:rgb(119, 119, 119);background-color:transparent;" target="_blank" title="娄石整"><img src="C语言运算符的优先级和结合性一览表_C语言中文网_files/50.jpg" type="image/jpeg" alt="娄石整" height="50" style="line-height:inherit;border:0px;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;box-sizing:content-box;background:none;transition:none;overflow:visible;float:none;height:50px;width:50px;display:block;max-width:none;box-shadow:rgba(0, 0, 0, 0.219608) 0px 1px 3px;border-radius:3px;" width="50"/></a></div><div style="font-size:inherit;box-sizing:content-box;font-family:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;border:0px;margin:0px;line-height:inherit;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;padding-left:60px;"><div style="font-size:inherit;box-sizing:content-box;font-family:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;border:0px;margin:0px;line-height:inherit;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;padding-top:1px;"><a href="http://t.qq.com/cliangcliang" rel="nofollow" style="font-family:inherit;border:0px;box-sizing:content-box;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;overflow:visible;float:none;line-height:inherit;background:none;width:auto;height:auto;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;font-size:13px;margin-right:8px;color:rgb(221, 51, 34);" target="_blank">娄石整</a></div><p style="font-family:inherit;box-sizing:content-box;line-height:1.5em;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;clear:none;border:0px;text-indent:0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;margin:0.5em 0px;font-size:13px;word-wrap:break-word;">后面这个表怎么这么眼熟，谁抄谁的?</p><div style="font-size:inherit;box-sizing:content-box;font-family:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;border:0px;margin:0px;overflow:visible;background:none;width:auto;height:auto;float:none;transition:none;line-height:1.5em;"><span style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;display:inline;border:0px;margin:0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;font-size:12px;margin-right:8px;color:rgb(153, 153, 153);" title="2017年3月21日 8:54:55 AM">3月21日</span><a href="#" style="font-family:inherit;border:0px;box-sizing:content-box;overflow:visible;float:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;height:auto;width:auto;line-height:inherit;background:none;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;font-size:12px;margin:0px 6px 0px 0px;padding:0px 6px 0px 0px;color:rgb(153, 153, 153);"><span style="line-height:inherit;box-sizing:content-box;background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/sprites.png&quot;) no-repeat transparent;padding:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;border:0px;margin:0px;vertical-align:middle;overflow:hidden;display:inline-block;transition:opacity 0.15s linear;opacity:0.6;width:18px;height:13px;background-position:0px -105px;position:relative;top:-1px;"></span>回复</a><a href="#" style="font-family:inherit;border:0px;box-sizing:content-box;overflow:visible;float:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;height:auto;width:auto;line-height:inherit;background:none;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;font-size:12px;margin:0px 6px 0px 0px;padding:0px 6px 0px 0px;color:rgb(153, 153, 153);"><span style="line-height:inherit;box-sizing:content-box;background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/sprites.png&quot;) no-repeat transparent;padding:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;border:0px;margin:0px;vertical-align:middle;overflow:hidden;display:inline-block;transition:opacity 0.15s linear;opacity:0.6;width:14px;height:13px;background-position:0px -117px;position:relative;top:-1px;"></span>赞</a><a href="#" style="font-family:inherit;border:0px;box-sizing:content-box;overflow:visible;float:none;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;height:auto;width:auto;line-height:inherit;background:none;text-decoration:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;font-size:12px;margin:0px 6px 0px 0px;padding:0px 6px 0px 0px;color:rgb(153, 153, 153);"><span style="line-height:inherit;box-sizing:content-box;background:url(&quot;http://static.duoshuo.com//static.duoshuo.com/images/sprites.png&quot;) no-repeat transparent;padding:0px;float:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;font-family:inherit;border:0px;margin:0px;vertical-align:middle;overflow:hidden;display:inline-block;transition:opacity 0.15s linear;opacity:0.6;width:18px;height:13px;background-position:0px -234px;position:relative;top:-1px;"></span>转发</a></div></div><span style="font-style:inherit;font-variant:inherit;font-weight:inherit;font-size:inherit;font-family:inherit;line-height:inherit;display:block;height:0px;clear:both;visibility:hidden;">.</span></div></li><span style="list-style:none;font-style:inherit;font-variant:inherit;font-weight:inherit;font-size:inherit;font-family:inherit;line-height:inherit;display:block;height:0px;clear:both;visibility:hidden;">.</span></ul><p style="font-family:inherit;box-sizing:content-box;line-height:inherit;padding:10px 0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:12px;border:0px;margin:0px;background:none;width:auto;height:auto;float:none;overflow:visible;transition:none;text-indent:0px;clear:none;text-align:right;"><a href="http://duoshuo.com/" rel="nofollow" style="font-family:inherit;border:0px;box-sizing:content-box;padding:0px;margin:0px;vertical-align:baseline;font-style:inherit;font-variant:inherit;font-weight:inherit;font-stretch:inherit;font-size:inherit;overflow:visible;line-height:inherit;background:none;width:auto;height:auto;float:none;transition:color 0.15s linear;cursor:pointer;background-color:transparent;text-decoration:none;color:rgb(153, 153, 153);" target="_blank">C语言中文网正在使用多说</a></p></div></div>
+</div></div></div></div></div><br/></div></span>
+</div></body></html> 

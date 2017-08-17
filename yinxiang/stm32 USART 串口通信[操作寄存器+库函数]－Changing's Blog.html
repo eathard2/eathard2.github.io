@@ -1,0 +1,327 @@
+<html>
+<head>
+  <title>stm32 USART 串口通信[操作寄存器+库函数]－Changing's Blog</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="783"/>
+<h1>stm32 USART 串口通信[操作寄存器+库函数]－Changing's Blog</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/4/16 22:59</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://www.ichanging.org/stm32_usart.html"><i>http://www.ichanging.org/stm32_usart.html</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div style="background:rgb(255, 255, 255);font-size:62.5%;-webkit-font-smoothing:antialiased;text-size-adjust:none;"><div style="font-size:1.2em;background:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;color:rgb(109, 109, 109);line-height:1.5em;font-family:微软雅黑, Tahoma, Helvetica, &quot;Lucida Grande&quot;, Georgia, Verdana;text-align:center;word-break:break-all;-webkit-text-stroke:1px transparent;"><div style="text-align:left;"><div style="text-align:left;"><div><div><div style="font-size:1.2em;line-height:1.8em;letter-spacing:1px;"><div style="margin:0px;padding:0px;text-align:left;">串口通信虽然在如今的电脑上使用的越来越少，因为其在通信速率，距离已经不适应pc的要求，取而代之的是USB口。但是在嵌入式领域，USART仍然广泛运用着。 </div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">stm32的最多可以提供5路串口，有分数波特率发生器、支持同步单线通信和半双工单线通信、具有DMA等。使用USART时，stm32的I/O口经RS232电平转换电路 和电脑的串口连接。 </div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">串口使用只需要开始串口时钟，设置相应的I/O口模式，配置波特率、数据位长度、奇偶校验位等信息就可以使用了。</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;"><div style="margin:0px;padding:0px;text-align:left;">我使用了三种方式使用串口通信,只可以开启一项： </div><ul style="margin:0px;padding:0px;">		<li style="margin:0px;padding:0px;list-style-type:disc;list-style-position:inside;">USART通过使用printf()函数发送信息； </li>		<li style="margin:0px;padding:0px;list-style-type:disc;list-style-position:inside;">USART和上位机通信，接收到数据后原数据输出； </li>		<li style="margin:0px;padding:0px;list-style-type:disc;list-style-position:inside;">USART主动发送数据。 </li>	</ul></div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;"><strong>操作寄存器</strong></div><div style="margin:0px;padding:0px;text-align:left;">    串口的复位是通过配置APB2RSTR 寄存器的第14位，当外设出现故障时，可以通过复位寄存器复位，在系统初始化时，都会执行复位操作。</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">    串口的波特率设置是在USART_BRR寄存器上， 实际上这个寄存器配置的是波特比率的分频触发因子的值，波特率是一秒钟通过的字符，而波特比率是一秒钟通过的二进制位数，所以设置了波特率需要经过一段算法处理 ，得出特定时钟下，实现这个波特率的，时钟分频值。</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">    串口控制寄存器有3个 USART_CR1~3，常用到的就是USART_CR1，各位描述如下：</div><div style="margin:0px;padding:0px;text-align:left;"><img src="stm32 USART 串口通信[操作寄存器+库函数]－Changing's Blog_files/237749832.png" type="image/png" alt="usart-cr.png" height="191" style="border-style:none;background-image:url("http://changing.sinaapp.com/usr/themes/2011/css/../images/loadingImg.gif");background-repeat:no-repeat;background-position:center center;display:inline;" width="1027"/></div><div style="margin:0px;padding:0px;text-align:left;">   UE：USART使能 (USART enable)</div><div style="margin:0px;padding:0px;text-align:left;">   M：字长 (Word length) 该位定义了数据字的长度， 0：一个起始位，8个数据位，n个停止位；</div><div style="margin:0px;padding:0px;text-align:left;">1：一个起始位，9个数据位，n个停止位。 n由USART_CR2中设置。</div><div style="margin:0px;padding:0px;text-align:left;">   WAKE：唤醒的方法 (Wakeup method)  0：被空闲总线唤醒；  1：被地址标记唤醒。</div><div style="margin:0px;padding:0px;text-align:left;">   PCE：检验控制使能 (Parity control enable)</div><div style="margin:0px;padding:0px;text-align:left;">   PS：校验选择 (Parity selection)  0：偶校验；1：奇校验。</div><div style="margin:0px;padding:0px;text-align:left;">   PEIE：PE中断使能 (PE interrupt enable)</div><div style="margin:0px;padding:0px;text-align:left;">  TXEIE：发送缓冲区空中断使能 (TXE interrupt enable)</div><div style="margin:0px;padding:0px;text-align:left;">  TCIE：发送完成中断使能 (Transmission complete interrupt enable)</div><div style="margin:0px;padding:0px;text-align:left;">  RXNEIE：接收缓冲区非空中断使能 (RXNE interrupt enable)</div><div style="margin:0px;padding:0px;text-align:left;">  IDLEIE：IDLE中断使能 (IDLE interrupt enable)  0：禁止产生中断； 1：当USART_SR中的IDLE为’1’时，产生USART中断。</div><div style="margin:0px;padding:0px;text-align:left;"> TE：发送使能 (Transmitter enable)</div><div style="margin:0px;padding:0px;text-align:left;"> RE：接收使能 (Receiver enable)</div><div style="margin:0px;padding:0px;text-align:left;"> RWU：接收唤醒 (Receiver wakeup)  0：接收器处于正常工作模式； 1：接收器处于静默模式。</div><div style="margin:0px;padding:0px;text-align:left;">注意：1．在把USART置于静默模式(设置RWU位)之前，USART要已经先接收了一个数据字节。否则在静默模式下，不能被空闲总线检测唤醒。</div><div style="margin:0px;padding:0px;text-align:left;">2．当配置成地址标记检测唤醒(WAKE位=1)，在RXNE位被置位时，不能用软件修改RWU位。</div><div style="margin:0px;padding:0px;text-align:left;"> SBK：发送断开帧 (Send break)</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">  数据的发送和接收是在USART_DR来实现的，这是一个双寄存器，包含了TDR和RDR,当向该寄存器写入数据时，串口就会自动发送数据；当收到数据时，也是存在该寄存器内中，可以直接读出。该寄存器只有低9位有效（8：0），其他位都是保留的。</div><p style="padding:0px;margin:1em 0px;"></p><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;"> 串口状态是通过状态寄存器USART_SR读取的，各位描述如下：</div><div style="margin:0px;padding:0px;text-align:left;"><img src="stm32 USART 串口通信[操作寄存器+库函数]－Changing's Blog_files/1678475921.png" type="image/png" alt="usart_sr.png" height="272" style="border-style:none;background-image:url("http://changing.sinaapp.com/usr/themes/2011/css/../images/loadingImg.gif");background-repeat:no-repeat;background-position:center center;display:inline;" width="1025"/></div><div style="margin:0px;padding:0px;text-align:left;">    TXE:发送数据寄存器空 (Transmit data register empty)</div><div style="margin:0px;padding:0px;text-align:left;">        当TDR寄存器中的数据被硬件转移到移位寄存器的时候，该位被硬件置位。如果USART_CR1寄存器中的TXEIE为1，则产生中断。对USART_DR的写操作，将该位清零。</div><div style="margin:0px;padding:0px;text-align:left;">        0：数据还没有被转移到移位寄存器；</div><div style="margin:0px;padding:0px;text-align:left;">        1：数据已经被转移到移位寄存器。</div><div style="margin:0px;padding:0px;text-align:left;"><div style="margin:0px;padding:0px;text-align:left;">    TC：发送完成 (Transmission complete)</div><div style="margin:0px;padding:0px;text-align:left;">    当包含有数据的一帧发送完成后，并且TXE=1时，由硬件将该位置’1’。如果USART_CR1中的TCIE为’1’，则产生中断。由软件序列清除该位(先读USART_SR，然后写入USART_DR)。TC位也可以通过写入’0’来清除，只有在多缓存通讯中才推荐这种清除程序。</div><div style="margin:0px;padding:0px;text-align:left;"><div style="margin:0px;padding:0px;text-align:left;">    RXNE：读数据寄存器非空 (Read data register not empty)</div><div style="margin:0px;padding:0px;text-align:left;">    当RDR移位寄存器中的数据被转移到USART_DR寄存器中，该位被硬件置位，表示已经接收到了数据。如果USART_CR1寄存器中的RXNEIE为1，则产生中断。对USART_DR的读操作可以将该位清零。RXNE位也可以通过写入0来清除，只有在多缓存通讯中才推荐这种清除程序。</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">直接操作寄存器代码如下：<span style="text-align:left;">（system.h 和 </span>stm32f10x_it.h<span style="text-align:left;"> 等相关代码参照 </span><a href="http://www.ichanging.org/mdk-stm32Register-set.html" style="text-decoration:underline;color:rgb(109, 109, 109);transition:color 0.3s linear, background-color 0.3s linear;-webkit-transition:color 0.3s linear, background-color 0.3s linear;text-align:left;">stm32 直接操作寄存器开发环境配置</a><span style="text-align:left;">）</span></div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">User/main.c</div><div style="margin:0px;padding:0px;text-align:left;"><pre style="margin:0px;padding:0px;font-family:&quot;Lucida Console&quot;, Monaco, monospace;overflow:auto;display:inline;">#include &lt;stm32f10x_lib.h&gt;	 
+#include &quot;system.h&quot;
+#include &quot;usart.h&quot; 
+#include &quot;stdio.h&quot;
+
+#define  PRINTF_ON 0           	//设置printf() 输出
+#define  RECEIVE_SEND_BACK 0   //设置接收信息后原文发送
+#define  SEND_WORDS        1    //设置发送字符串
+
+void Gpio_Init(void);
+
+vu8 RxBuffer[]=&quot;\r\n i will success finally..\r\n&quot;;
+
+int main(void)
+{			
+	u32 i=0;	  
+
+	Rcc_Init(9); 			 //系统时钟设置
+
+	Usart1_Init(72,9600);	//设置系统时钟和波特率
+
+	#if RECEIVE_SEND_BACK
+		Nvic_Init(3,3,USART1_IRQChannel,2);		  	 
+	#endif
+
+	Gpio_Init();   //配置串口寄存器时可能导致IO口输出，最后配置最好
+
+	#if PRINTF_ON
+    	printf(&quot;\r\nThanks god ,i am success now..\r\n&quot;);
+	#elif SEND_WORDS
+	  	while(sizeof(RxBuffer)&gt;=i)
+		{
+			USART1-&gt;DR = RxBuffer[i];
+			while((USART1-&gt;SR&amp;0x40) == 0);
+			//USART1-&gt;SR &amp;= 0x1F;     //清除TC中断
+			i++;
+		} 
+     #endif
+	 
+	 
+	 while(1);
+}
+
+
+void Gpio_Init(void)
+{
+	RCC-&gt;APB2ENR|=1&lt;&lt;2;    //使能PORTA时钟	   	 
+
+	//GPIOA-&gt;CRL&amp;=0x0000FFFF; // PA0~3设置为浮空输入，PA4~7设置为推挽输出
+	//GPIOA-&gt;CRL|=0x33334444; 
+
+	//USART1 串口I/O设置
+
+	GPIOA -&gt; CRH&amp;=0xFFFFF00F;   //设置USART1 的Tx(PA.9)为第二功能推挽，50MHz；Rx(PA.10)为浮空输入
+	GPIOA -&gt; CRH|=0x000008B0;	  
+}
+</pre></div></div></div><div style="margin:0px;padding:0px;text-align:left;">User/stm32f10x_it.c</div><div style="margin:0px;padding:0px;text-align:left;"><pre style="margin:0px;padding:0px;font-family:&quot;Lucida Console&quot;, Monaco, monospace;overflow:auto;display:inline;">#include &quot;stm32f10x_it.h&quot;
+
+void USART1_IRQHandler(void)
+{
+	vu8 data;
+
+	if(USART1-&gt;SR &amp;(1&lt;&lt;5))  //接收到数据
+	{
+		data = USART1-&gt;DR;
+		USART1-&gt;DR = data;
+		while((USART1-&gt;SR&amp;0x40) == 0);
+	} 
+}
+</pre></div><div style="margin:0px;padding:0px;text-align:left;">Library/src/usart.c</div><div style="margin:0px;padding:0px;text-align:left;"><pre style="margin:0px;padding:0px;font-family:&quot;Lucida Console&quot;, Monaco, monospace;overflow:auto;display:inline;">#include &lt;stm32f10x_lib.h&gt;	 
+#include &quot;usart.h&quot; 
+
+/**
+ *	初始化 USART1的控制寄存器、波特比率寄存器、开启时钟
+ *	注意：未配置I/O口功能,需设置USART1 的Tx(PA.9)为第二功能推挽，50MHz；Rx(PA.10)为浮空输入
+ */
+
+void Usart1_Init(u32 clk,u32 baudRate)	 //参数说明： clk 单位为Mhz 
+{
+	//USART1-&gt;BBR 波特比率设置
+	float temp;
+
+	u16 BRR_Value;
+	u16 BRR_Mantissa;
+	u16 BRR_Fraction;
+
+	temp = (float)(clk*1000000)/(baudRate*16);   //得到USART 分频除法因子（每个字符16位，乘16得到每秒通过的字符数）
+
+	BRR_Mantissa = temp; 	//得到BRR[15:4]整数部分
+
+	BRR_Fraction = (temp - BRR_Mantissa)*16;  //得到BRR[3:0]小数部分
+
+	BRR_Mantissa&lt;&lt;=4;
+
+	BRR_Value = BRR_Mantissa + BRR_Fraction;  //拼接整数和小数部分
+   	
+	RCC-&gt;APB2ENR|=1&lt;&lt;14;    //使能串口时钟
+
+	RCC-&gt;APB2RSTR |= 1&lt;&lt;14; //复位串口1
+	RCC-&gt;APB2RSTR &amp;= ~(1&lt;&lt;14); //初始化串口复位寄存器位
+
+	USART1-&gt;BRR = BRR_Value;  //设置波特比率
+
+	USART1-&gt;CR1 |= 1&lt;&lt;8;		//PEIE中断使能
+	USART1-&gt;CR1 |= 1&lt;&lt;5;		//RXNEIE，接收完成中断使能
+	//USART1-&gt;CR1 |= 1&lt;&lt;6;		//TC，发送完成中断使能
+
+	USART1-&gt;CR1 |= 0x200C;  //1个停止位，无检验位
+
+			
+}
+
+
+#if  PRINTF_OUT
+#pragma import(__use_no_semihosting)             
+//标准库需要的支持函数                 
+struct __FILE 
+{ 
+	int handle; 
+	/* Whatever you require here. If the only file you are using is */ 
+	/* standard output using printf() for debugging, no file handling */ 
+	/* is required. */ 	 
+}; 
+/* FILE is typedef’ d in stdio.h. */ 
+FILE __stdout;       
+//定义_sys_exit()以避免使用半主机模式    
+_sys_exit(int x) 
+{ 
+	x = x; 
+} 
+//重定义fputc函数 
+int fputc(int ch, FILE *f)
+{      
+	USART1-&gt;DR = (u8) ch;      
+	while((USART1-&gt;SR&amp;0X40)==0);//循环发送,直到发送完毕
+	return ch;
+}
+#endif 
+
+</pre></div><div style="margin:0px;padding:0px;text-align:left;">Library/inc/usart.h</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;"><pre style="margin:0px;padding:0px;font-family:&quot;Lucida Console&quot;, Monaco, monospace;overflow:auto;display:inline;">#include &lt;stm32f10x_lib.h&gt;	 
+
+#define PRINTF_OUT 1   //使用printf()方式输出,使用这种方式会增大hex文件大小，所以不适用这种方式输出就置0
+
+#if PRINTF_OUT
+	#include &quot;stdio.h&quot;
+#endif
+
+
+void Usart1_Init(u32 clk,u32 baudRate);
+</pre></div><div style="margin:0px;padding:0px;text-align:left;">在MDK下 将上述文件添加到工程对应目录下即可：</div><div style="margin:0px;padding:0px;text-align:left;"><img src="stm32 USART 串口通信[操作寄存器+库函数]－Changing's Blog_files/3931208429.png" type="image/png" alt="QQ截图20120702120304.png" height="229" style="border-style:none;background-image:url("http://changing.sinaapp.com/usr/themes/2011/css/../images/loadingImg.gif");background-repeat:no-repeat;background-position:center center;display:inline;" width="269"/></div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;"><strong>库函数操作</strong></div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">在使用printf()串口输出 MDK 必须配置为User Micro LIB 。即为动态编译，可以减小 hex文件的带下  减小flash使用空间。</div><div style="margin:0px;padding:0px;text-align:left;"> </div><div style="margin:0px;padding:0px;text-align:left;">代码如下：</div><pre style="margin:0px;padding:0px;font-family:&quot;Lucida Console&quot;, Monaco, monospace;overflow:auto;display:inline;">#include &quot;stm32f10x.h&quot;
+#include &quot;stdio.h&quot;
+
+#define  PRINTF_ON 0     		//设置printf() 输出
+#define  RECEIVE_SEND_BACK 0 	//设置接收信息后原文发送
+#define  SEND_WORDS        1    //设置发送字符串
+
+vu8 RxBuffer[]=&quot;\r\n i will success finally..\r\n&quot;;		 //存储串口传入的数据,自定义字符串
+vu32 count=0;
+
+void RCC_Configuration(void);
+void GPIO_Configuration(void);
+void USART_Configuration(void);
+void delay(vu32 x);
+
+
+int main(void)
+{
+  	RCC_Configuration();
+  	GPIO_Configuration();
+	USART_Configuration();
+	while(1)
+	{	
+			#if PRINTF_ON 
+				printf(&quot;\r\nThanks god ,i am success now..\r\n&quot;);
+			#elif RECEIVE_SEND_BACK
+				if(USART_GetFlagStatus(USART1,USART_FLAG_RXNE)==SET)
+				{
+					RxBuffer[count] = USART_ReceiveData(USART1);
+					USART_SendData(USART1,RxBuffer[count]);
+					delay(5);	
+				}
+			#elif SEND_WORDS
+
+				USART_SendData(USART1,RxBuffer[count]);
+	
+	 			while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);	   
+				//while(USART_GetFlagStatus(USART1,USART_FLAG_TXE)==RESET);	   //检查是否发送完成的另一种方法
+
+				count++;
+				
+				if(sizeof(RxBuffer)&lt;count)
+				{ 
+					count=0; 
+					break;    //只发送一次  
+				}
+						
+			#endif 
+	} 
+
+}
+
+
+void delay(vu32 x)		 //vu32 1us一次
+{
+	vu32 a=100*x/7;		 
+	while(--x);			 
+}
+
+  
+void GPIO_Configuration(void)
+{
+  	GPIO_InitTypeDef GPIO_InitStructure;
+	
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;			
+  	GPIO_Init(GPIOA , &amp;GPIO_InitStructure); 
+
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
+  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;			
+  	GPIO_Init(GPIOA , &amp;GPIO_InitStructure); 
+}
+
+
+void RCC_Configuration(void)
+{
+	/* 定义枚举类型变量 HSEStartUpStatus */
+	ErrorStatus HSEStartUpStatus;
+
+  	/* 复位系统时钟设置*/
+  	RCC_DeInit();
+  	/* 开启HSE*/
+  	RCC_HSEConfig(RCC_HSE_ON);
+  	/* 等待HSE起振并稳定*/
+  	HSEStartUpStatus = RCC_WaitForHSEStartUp();
+	/* 判断HSE起是否振成功，是则进入if()内部 */
+  	if(HSEStartUpStatus == SUCCESS)
+  	{
+    	/* 选择HCLK（AHB）时钟源为SYSCLK 1分频 */
+    	RCC_HCLKConfig(RCC_SYSCLK_Div1); 
+    	/* 选择PCLK2时钟源为 HCLK（AHB） 1分频 */
+    	RCC_PCLK2Config(RCC_HCLK_Div1); 
+    	/* 选择PCLK1时钟源为 HCLK（AHB） 2分频 */
+    	RCC_PCLK1Config(RCC_HCLK_Div2);
+    	/* 设置FLASH延时周期数为2 */
+    	FLASH_SetLatency(FLASH_Latency_2);
+    	/* 使能FLASH预取缓存 */
+    	FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+    	/* 选择锁相环（PLL）时钟源为HSE 1分频，倍频数为9，则PLL输出频率为 8MHz * 9 = 72MHz */
+    	RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
+    	/* 使能PLL */ 
+    	RCC_PLLCmd(ENABLE);
+    	/* 等待PLL输出稳定 */
+    	while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
+    	/* 选择SYSCLK时钟源为PLL */
+    	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+    	/* 等待PLL成为SYSCLK时钟源 */
+    	while(RCC_GetSYSCLKSource() != 0x08);
+  	} 
+  	/* 打开APB2总线上的GPIOA时钟*/
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_USART1, ENABLE);
+
+	//RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 , ENABLE);
+		
+}
+
+ 
+void USART_Configuration(void)
+{
+	USART_InitTypeDef USART_InitStructure;
+	USART_ClockInitTypeDef USART_ClockInitStructure;
+
+	USART_ClockInitStructure.USART_Clock = USART_Clock_Disable;
+	USART_ClockInitStructure.USART_CPOL = USART_CPOL_Low;
+	USART_ClockInitStructure.USART_CPHA = USART_CPHA_2Edge;                                                                                                                                                      
+	USART_ClockInitStructure.USART_LastBit = USART_LastBit_Disable;
+	USART_ClockInit(USART1 , &amp;USART_ClockInitStructure);
+
+	USART_InitStructure.USART_BaudRate = 9600;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx|USART_Mode_Tx;
+	USART_Init(USART1,&amp;USART_InitStructure);
+
+ 	USART_Cmd(USART1,ENABLE);
+}
+
+
+
+#if	 PRINTF_ON
+
+int fputc(int ch,FILE *f)
+{
+	USART_SendData(USART1,(u8) ch);
+	while(USART_GetFlagStatus(USART1,USART_FLAG_TC) == RESET);
+	return ch;
+}
+
+#endif
+</pre><div style="margin:0px;padding:0px;text-align:left;"> </div></div></div></div></div></div></div></div></div><br/></div></span>
+</div></body></html> 

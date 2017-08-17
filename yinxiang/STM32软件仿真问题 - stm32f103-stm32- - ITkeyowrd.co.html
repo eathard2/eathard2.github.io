@@ -1,0 +1,101 @@
+<html>
+<head>
+  <title>STM32软件仿真问题 - stm32f103-stm32- - ITkeyowrd.com</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/304720 (zh-CN, DDL); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="857"/>
+<h1>STM32软件仿真问题 - stm32f103-stm32- - ITkeyowrd.com</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2017/4/28 21:48</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="http://www.itkeyword.com/doc/4153095341872271x327/stm32-STM32F103"><i>http://www.itkeyword.com/doc/4153095341872271x327/stm32-STM32F103</i></a></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span><div style="-evernote-webclip:true"><br/><div style="font-size: 16px; display: inline-block;"><div style="list-style:none;"><div style="list-style:none;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:25px;font-family:'Open Sans', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, STHeiti, 'WenQuanYi Micro Hei', SimSun, sans-serif;color:rgb(51, 51, 51);background-color:rgb(255, 255, 255);"><div style="list-style:none;"><div style="list-style:none;">
+		
+			<h1 style="list-style:none;margin:0px;padding:0px;font-weight:normal;font-size:30px;line-height:30px;margin-top:10px;color:rgb(43, 43, 43);text-align:center;">STM32软件仿真问题</h1>
+			<div style="margin:0px;list-style:none;padding:5px;height:24px;line-height:17px;text-align:center;overflow:hidden;color:rgb(153, 153, 153);margin-top:10px;">Cracent 2016-02-16
+			
+			</div>
+			
+								
+
+	<div style="margin:0px;list-style:none;padding:10px 5px;line-height:1.8;">
+		
+			  <blockquote style="list-style:none;margin:0px;padding:5px 25px;background-color:rgb(245, 245, 245);margin-bottom:5px;"><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;">相关推荐：<a href="http://www.itkeyword.com/doc/8822892300730456035/arm-stm32" style="margin:0px;padding:0px;list-style:none;text-decoration:none;outline:none;color:rgb(51, 51, 51);" target="_blank">STM32学习笔记(一)</a></p><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;">一、stm32固件库学习 1. 建立模板 模板是按照附件的方法建立的，共建立了4个文件夹：CMSIS、Startup、USER、Project。在Project中还建立了2个文件夹：Obj和Listi</p></blockquote>
+				
+		<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;"></p><p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;">今天写好程序后，进行PWM软件仿真，发现程序一直卡在SystemInit()里面。</p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;">最后发现Dialog.DLL和Parameter有问题</p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;"><img src="STM32软件仿真问题 - stm32f103-stm32- - ITkeyowrd.co_files/mMzYna.png" type="image/png" alt="" height="465" style="padding:0px;list-style:none;border:0px;margin:0px auto;max-width:100%;height:auto;display:block;" width="622"/><img alt="" height="0" style="padding:0px;list-style:none;border:0px;margin:0px auto;max-width:100%;height:auto;display:block;" width="0"></img><img alt="" height="0" style="padding:0px;list-style:none;border:0px;margin:0px auto;max-width:100%;height:auto;display:block;" width="0"></img></p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;">修改方法： </p><blockquote style="list-style:none;margin:0px;padding:5px 25px;background-color:rgb(245, 245, 245);margin-bottom:5px;"><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;"></p><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;">相关推荐：<a href="http://www.itkeyword.com/doc/8245171728363541x598/stm32" style="margin:0px;padding:0px;list-style:none;text-decoration:none;outline:none;color:rgb(51, 51, 51);" target="_blank">stm32  程序存储</a></p><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;">ROM和RAM指的都是半导体存储器，ROM是Read Only Memory的缩写，RAM是Random Access Memory的缩写。ROM在系统停止供电的时候仍然可以保持数据，而RAM通常都是在掉</p><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;"></p></blockquote> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;">将“Options for Target ”中‘Debug’页面下，最下面一行的Diglog DLL:改为DARMSTM.DLL，Parameter：改为-pSTM32F103ZE。</p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;">（注意：STM32F103ZE是我选的芯片型号 ） </p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;">Dialog .DLL 分别为： DARMSTM.DLL 和TARMSTM.DLL， Parameter 均为：-pSTM32F103ZE，用于支持芯片的软硬件仿真（即可以通过 Peripherals 选择对应外设的对话框观察仿真结果）。</p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;"><img alt="" height="0" style="padding:0px;list-style:none;border:0px;margin:0px auto;max-width:100%;height:auto;display:block;" width="0"></img><img alt="" height="0" style="padding:0px;list-style:none;border:0px;margin:0px auto;max-width:100%;height:auto;display:block;" width="0"></img><img src="STM32软件仿真问题 - stm32f103-stm32- - ITkeyowrd.co_files/aeiiY3.png" type="image/png" alt="" height="467" style="padding:0px;list-style:none;border:0px;margin:0px auto;max-width:100%;height:auto;display:block;" width="641"/><br style="margin:0px;padding:0px;list-style:none;"/> </p> 
+<p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;"></p><p style="list-style:none;margin:0px;padding:0px;font-size:15px;text-indent:2em;"></p>
+		
+			  <blockquote style="list-style:none;margin:0px;padding:5px 25px;background-color:rgb(245, 245, 245);margin-bottom:5px;"><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;">相关推荐：<a href="http://www.itkeyword.com/doc/3689032073605466585/gnu-gcc-linker" style="margin:0px;padding:0px;list-style:none;text-decoration:none;outline:none;color:rgb(51, 51, 51);" target="_blank">基于GNU 对STM32工程</a></p><p style="list-style:none;margin:0px;padding:0px;text-indent:2em;font-size:14px;color:rgb(153, 153, 153);line-height:1.6;margin-bottom:1px;"> 说实话，现在很多人都用IAR跟kei等可视化IDE，真的很方便的。  但是不管是IAR还是IDE，我想很多人都觉得要嘛编辑界面不好，要嘛就是编译器不好（这也是Iar与kei</p></blockquote>
+		 		
+	</div>
+				
+	<div style="list-style:none;margin:5px;padding:5px 25px;color:rgb(153, 153, 153);line-height:1.6;font-size:14px;text-indent:2em;background-color:rgb(245, 245, 245);">今天写好程序后，进行PWM软件仿真，发现程序一直卡在SystemInit()里面。最后发现Dialog.DLL和Parameter有问题修改方法： 将“Options for Target ”中‘Debug’页面下，最下面一行的Dig</div>
+		
+			
+			
+	<div style="padding:0px;list-style:none;margin:40px 0px;"><span style="list-style:none;display:block;line-height:0;height:0px;"></span>
+		<a href="#" style="float:left;margin:0px;list-style:none;height:34px;text-decoration:none;outline:none;display:block;padding:0px 20px;color:rgb(234, 109, 0);margin-right:15px;border:1px solid rgb(246, 126, 21);border-radius:18px;font-size:16px;line-height:34px;" title="分享到微博"><i style="margin:0px;padding:0px;list-style:none;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:0.2px;font-size:20px;font-family:iconfont;"><span style="list-style:none;font-size:20px;font-style:normal;font-family:iconfont;"></span></i> 分享到微博</a>
+		<a href="#" style="height:34px;margin:0px;list-style:none;margin-right:15px;text-decoration:none;outline:none;display:block;float:left;padding:0px 20px;border:1px solid rgb(246, 126, 21);border-radius:18px;font-size:16px;line-height:34px;color:rgb(138, 170, 27);border-color:rgb(160, 200, 22);position:relative;" title="分享到微信"><i style="margin:0px;padding:0px;list-style:none;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:0.2px;font-size:20px;font-family:iconfont;"><span style="list-style:none;font-size:20px;font-style:normal;font-family:iconfont;"></span></i> 分享到微信</a>
+				
+	<span style="list-style:none;display:block;line-height:0;height:0px;clear:both;"></span></div>
+
+	<hr style="list-style:none;margin:0px;padding:0px;display:block;height:0px;width:100%;margin-bottom:20px;border-style:solid none none;border-top-width:1px;border-top-color:rgb(226, 226, 226);"/>
+		
+	<div style="margin:0px;padding:0px;list-style:none;line-height:40px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgb(226, 226, 226);border:none;">
+		<h3 style="list-style:none;margin:0px;padding:0px;font-weight:normal;font-size:18px;color:rgb(189, 115, 0);">相关阅读排行</h3>
+	</div>
+	<ul style="margin:0px;padding:0px;list-style:none;">
+		
+			  
+		<li style="list-style:none;margin:0px;padding:8px 0px 5px 25px;position:relative;border-bottom-width:1px;border-bottom-color:rgb(226, 226, 226);color:rgb(51, 51, 51);border-bottom-style:none;"><i style="height:16px;margin:0px;list-style:none;padding:0px;color:rgb(255, 255, 255);top:13px;display:block;width:16px;position:absolute;border-radius:50%;left:0px;font-size:12px;font-style:normal;line-height:16px;text-align:center;background-color:rgb(246, 126, 21);opacity:0.92;">1</i><a href="http://www.itkeyword.com/doc/2880021566703306943/reset-while-stm32" style="margin:0px;padding:0px;list-style:none;text-decoration:none;color:inherit;outline:none;" target="_blank" title="STM32 EOC标志有问题，while(ADC_GetFlagStatus(ADC1,ADC_FLAG_EOC) == RESET)">STM32 EOC标志有问题，while(ADC_GetFlagStatus(ADC1,ADC_FLAG_EOC) == RESET)</a></li>
+			
+		
+	</ul>
+			<hr style="list-style:none;margin:0px;padding:0px;display:block;height:0px;width:100%;margin-bottom:20px;border-style:solid none none;border-top-width:1px;border-top-color:rgb(226, 226, 226);"/>
+						
+			<div style="margin:0px;padding:0px;list-style:none;line-height:40px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgb(226, 226, 226);border:none;">
+				<h3 style="list-style:none;margin:0px;padding:0px;font-weight:normal;font-size:18px;color:rgb(189, 115, 0);">用户评论</h3>
+			</div>
+			<div style="margin:0px;padding:0px;list-style:none;margin-top:40px;"><span style="list-style:none;display:block;line-height:0;height:0px;"></span>
+				<div style="margin:0px;padding:0px;list-style:none;display:inline;float:left;width:50px;text-align:center;">
+					
+										<img src="STM32软件仿真问题 - stm32f103-stm32- - ITkeyowrd.co_files/no-avatar.png" type="image/png" height="50" style="margin:0px;padding:0px;list-style:none;border:0px;width:50px;height:50px;border-radius:50%;" width="50"/>
+					<p style="list-style:none;margin:0px;padding:0px;">游客</p>
+									</div>
+				<div style="margin:0px;padding:0px;list-style:none;display:inline;float:right;width:590px;color:rgb(118, 121, 107);">
+										
+					<div style="margin:0px;padding:0px;list-style:none;margin-top:10px;"><span style="list-style:none;display:block;line-height:0;height:0px;"></span>
+                    <p style="list-style:none;margin:0px;padding:0px;display:inline;float:left;">
+							
+					</p>
+					<a href="#" style="display:block;margin:0px;list-style:none;text-decoration:none;outline:none;color:rgb(255, 255, 255);padding:0px 20px;float:right;height:27px;border:none;border-radius:3px;line-height:27px;background-color:rgb(246, 126, 21);">发表</a>
+					<span style="list-style:none;display:block;line-height:0;height:0px;clear:both;"></span></div>
+				</div>
+			<span style="list-style:none;display:block;line-height:0;height:0px;clear:both;"></span></div>
+			<ul style="margin:0px;padding:0px;list-style:none;"></ul>
+			
+			
+			<p style="list-style:none;padding:0px;margin:30px 0px;margin-left:70px;"></p>
+			
+		</div></div></div></div></div><br/></div></span>
+</div></body></html> 
