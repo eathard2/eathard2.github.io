@@ -1,0 +1,28 @@
+Nets report For PCB1.PCB
+On 23-Jul-2017 at 17:47:55
+
+Statistics
+
+   15 New Nodes
+
+    1 Error
+
+
+Netlist Macros
+
+No.   Action                                             Error
+1     Add node R18-2 to net GND
+2     Add node R19-2 to net GND
+3     Add node LCD1-18 to net P07_0                      Error: Node Not found
+4     Add node R2-2 to net NetLED9_1
+5     Add node R3-2 to net NetLED9_2
+6     Add node R4-2 to net NetLED9_3
+7     Add node R5-2 to net NetLED9_4
+8     Add node R6-2 to net NetLED9_5
+9     Add node R7-2 to net NetLED9_6
+10    Add node R8-2 to net NetLED9_7
+11    Add node R9-2 to net NetLED9_8
+12    Add node R10-2 to net P10_0
+13    Add node R11-2 to net P11_0
+14    Add node R12-2 to net P12_0
+15    Add node R13-2 to net P13_0                        
