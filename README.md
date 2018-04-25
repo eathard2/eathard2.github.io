@@ -1,8 +1,6 @@
 there is no connection
 =========================
 
-Hello world !
+### ERROR: 404 
 ---------------
-
-## [loading...](https://zhuanlan.zhihu.com/p2pshare )
 
